@@ -103,6 +103,18 @@ SELECT to_char(creation_date, 'YYYY-MM') as "Month"
 
 API Info
 
+1. Google Maps
+
+2. Twilio
+
 3. Slack
 
-The Slack API runs from the Slack App created and posts to the appropriate channel via a WebHook URL, and using the slack-notifier gem to aid in posting the specified message in the channel when an elevators status is changed.
+    The Slack API runs from the Slack App created and posts to the appropriate channel via a WebHook URL, and using the slack-notifier gem to aid in posting the specified message in the channel when an elevators status is changed.
+
+4. DropBox
+
+5. SendGrid
+
+6. IBM Watson
+
+7. ZenDesk
