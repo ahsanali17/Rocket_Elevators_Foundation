@@ -24,7 +24,7 @@ Week 7 - This week, the task set to us is to integrate 7 different APIs into the
     4 - DropBox
     5 - SendGrid
     6 - IBM Watson
-    7 - ZenDesk 
+    7. ZenDesk 
  
  
 📌 Instructions to access to the admin panel:
