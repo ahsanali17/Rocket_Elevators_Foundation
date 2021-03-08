@@ -18,13 +18,13 @@ a- A relational database
 b- A data warehouse for decision-making
 
 Week 7 - This week, the task set to us is to integrate 7 different APIs into the Rocket Elevators website. those APIs include:
-    1 - Google Maps
-    2 - Twilio
-    3 - Slack
-    4 - DropBox
-    5 - SendGrid
-    6 - IBM Watson
-    7. ZenDesk 
+1. Google Maps
+2. Twilio
+3. Slack
+4. DropBox
+5. SendGrid
+6. IBM Watson
+7. ZenDesk 
  
  
 📌 Instructions to access to the admin panel:
