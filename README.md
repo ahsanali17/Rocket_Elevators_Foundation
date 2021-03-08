@@ -2,11 +2,10 @@ Rocket_Elevators_Information_System
 🚀	Working with MVC (Model-View-Controller)	📈
 
 Members of this week's team
-Abdul Akeeb -
+Kaelen Burroughs -
 Ahsan Syed -
 Cristiane Santiago -
-Lionel Niyongabire -
-Eric Moran
+Olaolu Adetula -
  
 🎯 About
 Week 4 - The main goal of this week is to transform the static site previously developed during the Genesis program and turn it into a web application on MVC (Model - View - Controller) foundations. The site must be in a state that allows you to create a new section that saves the Javascript form that calculates an estimate in the form of a purchase order.
@@ -17,9 +16,18 @@ Week 5 - During this week, participants are exposed to a more elaborate data mod
 Two types of databases will be requested for this exercise
 a- A relational database
 b- A data warehouse for decision-making
+
+Week 7 - This week, the task set to us is to integrate 7 different APIs into the Rocket Elevators website. those APIs include:
+    1 - Google Maps
+    2 - Twilio
+    3 - Slack
+    4 - DropBox
+    5 - SendGrid
+    6 - IBM Watson
+    7 - ZenDesk 
  
  
-📌 Instructions to acces to the admin panel:
+📌 Instructions to access to the admin panel:
 
 To login as Admin:
 1. Navigation bar : My Account
@@ -45,6 +53,8 @@ To login as Employee:
 10. gem 'faker'
 11. gem 'multiverse'
 12. gem 'blazer'
+13. gem 'figaro'
+14. gem 'slack-notifier'
 
 
 📌 The queries in mysql:
@@ -91,4 +101,8 @@ SELECT to_char(creation_date, 'YYYY-MM') as "Month"
   FROM public.fact_elevators
  group by "Customer";
 
+API Info
 
+3. Slack
+
+The Slack API runs from the Slack App created and posts to the appropriate channel via a WebHook URL, and using the slack-notifier gem to aid in posting the specified message in the channel when an elevators status is changed.
