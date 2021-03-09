@@ -9,6 +9,9 @@ gem 'figaro'
 #Slack notifications
 gem 'slack-notifier'
 
+#DropBox API gem
+gem 'dropbox_api'
+
 # For JS
 gem 'jquery-rails'
 gem 'bootstrap', '~> 5.0.0.beta1'
