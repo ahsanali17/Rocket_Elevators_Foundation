@@ -6,6 +6,9 @@ ruby '2.6.6'
 #Figaro for storing ENV variables
 gem 'figaro'
 
+# twilio
+gem 'twilio-ruby'
+
 # For JS
 gem 'jquery-rails'
 gem 'bootstrap', '~> 5.0.0.beta1'
