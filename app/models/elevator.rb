@@ -14,11 +14,10 @@ class Elevator < ApplicationRecord
                 
                 message = @client.messages.create(
                     body: "Hello Mr/Mrs #{self.column.battery.building.full_name_of_the_technical_contact_for_the_building}. The Elevator ID: #{self.id}, with Serial Number: #{self.serial_number} requires maintenance, the elevators status has been changed to: #{self.status}",
-                    # Cristiane numbers:
-                    # from: '+16106869129',
+                    from: '+16106869129',
+                    # Cristiane number:
                     # to: '+14184469990'
-                    # Kaelen numbers:
-                    from: '+12248582267',
+                    # Kaelen number:
                     to: '+13062407737'
                 ) 
             end           
