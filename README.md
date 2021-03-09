@@ -55,6 +55,7 @@ To login as Employee:
 12. gem 'blazer'
 13. gem 'figaro'
 14. gem 'slack-notifier'
+15. gem twilio-ruby
 
 
 📌 The queries in mysql:
@@ -106,6 +107,13 @@ API Info
 1. Google Maps
 
 2. Twilio
+
+    The Twilio API makes it easy to send SMS.
+    Whenever the elevator status changes to Intervention, the technical contact responsible for that building will receive an SMS, with the ID, Serial Number and Status of that elevator.
+
+    Note: in order to receive the message, your number needs to be verified by the Twilio platform.
+    https://www.twilio.com/
+    
 
 3. Slack
 
