@@ -6,8 +6,11 @@ ruby '2.6.6'
 #Figaro for storing ENV variables
 gem 'figaro'
 
-# twilio
+# Twilio sms
 gem 'twilio-ruby'
+
+#Slack notifications
+gem 'slack-notifier'
 
 # For JS
 gem 'jquery-rails'
