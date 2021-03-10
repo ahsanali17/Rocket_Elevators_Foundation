@@ -365,7 +365,7 @@ DEPENDENCIES
   devise
   dropbox_api
   faker
-  figaro (~> 1.1, >= 1.1.1)
+  figaro
   font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
