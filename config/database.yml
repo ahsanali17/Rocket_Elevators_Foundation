@@ -15,9 +15,11 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: codeboxx    
   password: Codeboxx1*
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /tmp/mysql.sock
 
-default: &postgresql
+
+
+postgresql: &postgresql
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
@@ -62,7 +64,9 @@ production:
 
 warehouse_development:
   <<: *postgresql
-  database: postgres
+  database: warehouse_development
+  username: 
+  password: 
 
 warehouse_test:
   <<: *postgresql
