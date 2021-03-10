@@ -1,21 +1,34 @@
 class LeadsController < ApplicationController
-    
-    
     def sendGrid_email_sender
-        require 'sendgrid-ruby'
-        # include SendGrid
-        from = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
-        to = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
-        subject = 'Sending with SendGrid is Fun'
-        content = SendGrid::Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
-        mail = SendGrid::Mail.new(from, subject, to, content)
-        sg = SendGrid::API.new(api_key:'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')
-        response = sg.client.mail._('send').post(request_body: mail.to_json)
+        # require 'sendgrid-ruby'
+        mail = SendGrid::Mail.new
+        mail.from = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
+        custom = SendGrid::Personalization.new
+        custom.add_to(SendGrid::Email.new(email: @lead[:email]))
+        custom.add_dynamic_template_data({
+            # Don't change the code below, keep it as it is
+            subject: 'Greetings ' + @lead[:full_name_of_contact],  
+            project_name: @lead.project_name
+        })
+        mail.add_personalization(custom)
+
+        # Our template ID to display the one we want & our API key connector
+        mail.template_id ='d-28033aca18914f9d875a7a233454197a'
+        our_key = SendGrid::API.new(api_key: ENV['SENDGRID_API'])
+
+        # Sends the info above to the API's website
+        begin
+          response = our_key.client.mail._('send').post(request_body: mail.to_json)
+        rescue Exception => e
+            puts e.message
+        end
+
+        # Print info into terminal
         puts response.status_code
         puts response.body
         puts response.headers
-
     end
+
 
     # POST /quotes or /quotes.json
     def create
