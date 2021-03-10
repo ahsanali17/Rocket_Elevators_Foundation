@@ -40,6 +40,9 @@ gem 'faker'
 # Chartkick
 gem 'chartkick'
 
+# Sendgrid
+gem 'sendgrid-ruby'
+
 # ADMIN SECTION
 gem 'rails_admin', '~> 2.0'
 gem 'rails_admin_rollincode', '~> 1.0'

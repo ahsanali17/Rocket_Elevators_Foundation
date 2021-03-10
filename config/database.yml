@@ -57,8 +57,8 @@ test:
 production:
   <<: *default
   database: postgres
-  username: postgres
-  password: password
+  username: codeboxx 
+  password: Codeboxx1!
 
 warehouse_development:
   <<: *postgresql
