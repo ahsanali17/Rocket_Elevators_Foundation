@@ -62,7 +62,7 @@ production:
 
 warehouse_development:
   <<: *postgresql
-  database: warehouse_development
+  database: postgres
 
 warehouse_test:
   <<: *postgresql

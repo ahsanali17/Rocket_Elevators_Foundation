@@ -121,7 +121,7 @@ API Info
 
 4. DropBox
 
-    The DropBox API uses the dropbox_api gem as well as the DropBox App that was created to move and store files assiciated to a customer whenever the specific customer is updated or created. It does so by comparing the customers email address to the adresses of the leads, and if they match it sends the file to dropbox and creates a directory for it if need be, and deletes the file from the MySQL database. The files can be viewed here: https://www.dropbox.com/sh/q44oq6c5r8cz5jt/AABv70xnWpVlUjicK4NB13c1a?dl=0. After clicking the link, just enter the Rocket Elevators API Team 3 folder to see all the folders created by the API. If for whatever reason this link does not work, the account email is burroughsdevtest@gmail.com, and the password is Codeboxx1! . The file path to the files is then Apps/Rocket Elevators API Team 3/.
+    The DropBox API uses the dropbox_api gem as well as the DropBox App that was created to move and store files assiciated to a customer whenever the specific customer is updated or created. It does so by comparing the customers email address to the adresses of the leads, and if they match it creates a directory using the customer contact name for it and sends the file to dropbox if it isn't already there, and deletes the file from the MySQL database. The files can be viewed here: https://www.dropbox.com/home/Apps/Rocket%20Elevators%20API%20Team%203. After clicking the link, you should be able to view all the directories created bythe dropbox API. If for whatever reason this link does not work, the account email is burroughsdevtest@gmail.com, and the password is Codeboxx1! . The file path to the files is then Apps/Rocket Elevators API Team 3/.
 
 5. SendGrid
 
