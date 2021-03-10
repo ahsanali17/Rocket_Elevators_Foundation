@@ -17,7 +17,7 @@ default: &default
   password: Pa$$w0rd!
   socket: /var/run/mysqld/mysqld.sock
 
-default: &postgresql
+postgresql: &postgresql
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
@@ -62,7 +62,7 @@ production:
 
 warehouse_development:
   <<: *postgresql
-  database: postgres
+  database: warehouse_development
 
 warehouse_test:
   <<: *postgresql
