@@ -3,6 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
 
+#Figaro for storing ENV variables
+gem 'figaro'
+
+# Twilio sms
+gem 'twilio-ruby'
+
+#Slack notifications
+gem 'slack-notifier'
+
+#DropBox API gem
+gem 'dropbox_api'
+
 # For JS
 gem 'jquery-rails'
 gem 'bootstrap', '~> 5.0.0.beta1'
