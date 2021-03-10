@@ -1,5 +1,22 @@
 class LeadsController < ApplicationController
-        
+    
+    
+    def sendGrid_email_sender
+        require 'sendgrid-ruby'
+        # include SendGrid
+        from = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
+        to = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
+        subject = 'Sending with SendGrid is Fun'
+        content = SendGrid::Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
+        mail = SendGrid::Mail.new(from, subject, to, content)
+        sg = SendGrid::API.new(api_key:'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')
+        response = sg.client.mail._('send').post(request_body: mail.to_json)
+        puts response.status_code
+        puts response.body
+        puts response.headers
+
+    end
+
     # POST /quotes or /quotes.json
     def create
         
@@ -32,7 +49,11 @@ class LeadsController < ApplicationController
         end  
         
         if @lead.save!
+            # Redirect back
             redirect_back fallback_location: root_path, notice: "Your Request was successfully created and sent!"
+            
+            # Sender
+            sendGrid_email_sender()
         end    
     end    
      #===================================================================================================
