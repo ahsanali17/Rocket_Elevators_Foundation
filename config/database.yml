@@ -13,14 +13,11 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-<<<<<<< HEAD
-  password: 
+  username: codeboxx    
+  password: Codeboxx1*
   socket: /tmp/mysql.sock
-=======
-  password: Pa$$w0rd!
-  socket: /var/run/mysqld/mysqld.sock
->>>>>>> c56a0a9a6f4fac48973bbb68d37a794f47c30cb0
+
+
 
 postgresql: &postgresql
   adapter: postgresql
@@ -62,8 +59,8 @@ test:
 production:
   <<: *default
   database: postgres
-  username: postgres
-  password: password
+  username: codeboxx 
+  password: Codeboxx1!
 
 warehouse_development:
   <<: *postgresql
