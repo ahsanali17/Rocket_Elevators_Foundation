@@ -14,8 +14,13 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
+<<<<<<< HEAD
   password: 
   socket: /tmp/mysql.sock
+=======
+  password: Pa$$w0rd!
+  socket: /var/run/mysqld/mysqld.sock
+>>>>>>> c56a0a9a6f4fac48973bbb68d37a794f47c30cb0
 
 postgresql: &postgresql
   adapter: postgresql
@@ -26,14 +31,14 @@ postgresql: &postgresql
 
 development:
   <<: *default
-  database: RailsApp_development
+  database: myapp_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: RailsApp_test
+  database: myapp_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -56,9 +61,9 @@ test:
 #
 production:
   <<: *default
-  database: RailsApp_production
-  username: RailsApp
-  password: <%= ENV['RAILSAPP_DATABASE_PASSWORD'] %>
+  database: postgres
+  username: postgres
+  password: password
 
 warehouse_development:
   <<: *postgresql
@@ -68,7 +73,7 @@ warehouse_development:
 
 warehouse_test:
   <<: *postgresql
-  database: warehouse_test
+  database: postgres
 
 warehouse_production:
   <<: *postgresql
