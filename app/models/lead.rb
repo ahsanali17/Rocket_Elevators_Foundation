@@ -1,4 +1,7 @@
 class Lead < ApplicationRecord
+    # SendGrid
+    require 'sendgrid-ruby'
+    include SendGrid
     require 'zendesk_api'
     after_save :create_lead_ticket
 
