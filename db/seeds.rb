@@ -390,7 +390,7 @@ typeArchitecture = ["Neoclassical", "Victorian", "Modern", "Neofuturist"]
             serial_number: Faker::Alphanumeric.unique.alphanumeric(number: 15),
             model: [:Standard, :Premium, :Excelium].sample,
             building_type: current_battery.building_type,
-            status: [:Active, :Intervention, :Inactive].sample,
+            status: [:Active, :Inactive].sample,  # Removed Intervention status because of Twilio.
             date_of_commissioning: Faker::Date.between(from: '2018-02-23', to: '2021-02-23'),
             date_of_last_inspection: Faker::Date.between(from: '2018-02-23', to: '2021-02-23'),
             certificate_of_inspection: Faker::Alphanumeric.unique.alphanumeric(number: 15),
