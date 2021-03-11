@@ -1,5 +1,5 @@
-<div id="Watson">
-    <% if current_user.admin == true %>
+<div id="watson">
+    <% if current_user.superadmin_role? %>
         <audio id="audio" controls>
         <source src="<%= audio_path 'audio.mp3'%>" type="audio/mpeg">
         </audio>
