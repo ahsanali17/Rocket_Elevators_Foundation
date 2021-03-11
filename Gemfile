@@ -85,8 +85,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Using Queries & Info From DB To Create The Charts
 gem 'blazer'
 
-
-
 gem "zendesk_api"
 
 group :development, :test do
