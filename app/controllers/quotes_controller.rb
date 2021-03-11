@@ -155,25 +155,19 @@ class QuotesController < ApplicationController
       config.url = ENV['ZENDESK_URL']
       config.username = ENV['ZENDESK_USERNAME']
       config.token = ENV['ZENDESK_TOKEN']
-  end
-  ZendeskAPI::Ticket.create!(client, 
+    end
+  
+    ZendeskAPI::Ticket.create!(client, 
       :subject => "#{@quote.contact_name} from #{@quote.company_name}", 
       :comment => { 
-          :value => "The contact #{@quote.contact_name} 
-              from company #{@quote.company_name} 
-              can be reached at email  #{@quote.email}  and the  
-              \n\n building type: #{@quote.building_type} 
-              \n\n number of columns: #{@quote.required_columns}
-              \n\n number of elevator shafts: #{@quote.required_shafts}
-              \n\n installation cost: #{@quote.installation_fee}
-              \n\n sub total: #{@quote.sub_total}
-              \n\n total: #{@quote.total}
-    "
+          :value => "The contact: #{@quote.contact_name}, from company: #{@quote.company_name}, who can be reached at the email: #{@quote.email}, submitted a quote for a #{@quote.building_type} building.
+              Based on the calculations, there are #{@quote.required_columns} columns required, with #{@quote.required_shafts} elevator shafts.
+              This project is calculated to cost #{@quote.sub_total}, with #{@quote.installation_fee} in installation fees, for a total price of #{@quote.total}."
       }, 
-      :requester => { 
-          "name": @quote.contact_name, 
-          "email": @quote.email 
-      },
+      # :requester => { 
+      #     "name": @quote.contact_name, 
+      #     "email": @quote.email 
+      # },
       :priority => "normal",
       :type => "question"
       )
