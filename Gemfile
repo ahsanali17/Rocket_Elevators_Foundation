@@ -15,6 +15,10 @@ gem 'slack-notifier'
 #DropBox API gem
 gem 'dropbox_api'
 
+#Google Maps
+gem 'gmaps4rails'
+gem 'geocoder'
+
 # For JS
 gem 'jquery-rails'
 gem 'bootstrap', '~> 5.0.0.beta1'
