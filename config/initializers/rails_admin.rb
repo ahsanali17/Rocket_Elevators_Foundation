@@ -31,6 +31,7 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   require Rails.root.join('lib','rails_admin','map_action.rb')
+  # require Rails.root.join('controller','rails_admin','watson_controller.rb')
   
   config.actions do
     dashboard                     # mandatory
