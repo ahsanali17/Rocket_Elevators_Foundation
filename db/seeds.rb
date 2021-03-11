@@ -354,7 +354,7 @@ typeArchitecture = ["Neoclassical", "Victorian", "Modern", "Neofuturist"]
     )
     BuildingDetail.create!(
         information_key: "Number of Floors",
-        value: Faker::Number.between(from: 1, to: 60),
+        value: Faker::Number.between(from: 5, to: 60),
         building_id: current_building.id
     )
 
