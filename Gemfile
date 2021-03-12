@@ -47,6 +47,8 @@ gem 'chartkick'
 # Sendgrid
 gem 'sendgrid-ruby'
 
+gem 'ibm_watson'
+
 # ADMIN SECTION
 gem 'rails_admin', '~> 2.0'
 gem 'rails_admin_rollincode', '~> 1.0'
