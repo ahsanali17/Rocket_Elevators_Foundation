@@ -1,15 +1,11 @@
 <div id="watson">
+    <form method="get" action="/watson/update" class="button_to">
+        <input value="Update" type="submit" />
+    </form>
+
     <% if current_user.superadmin_role? or current_user.employee_role? %>
         <audio id="audio" controls>
-        <source src="<%= '/hello_world.wav'%>" type="audio/wav">
+        <source src="<%= '/watson.wav'%>" type="audio/wav">
         </audio>
     <%end %>    
-
-    <%# <script> 
-        $('#watson').on('click', ()=>{
-            var audio = $('#audio').get(0);
-            audio.paused? audio.play():audio.pause()
-            audio.paused? $('#watson').text('PLAY'):$('#watson').text('PAUSE')
-        })
-    </script> %>
 </div>
