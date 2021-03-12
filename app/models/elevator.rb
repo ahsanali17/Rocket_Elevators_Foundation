@@ -27,11 +27,7 @@ class Elevator < ApplicationRecord
         def notify_slack
             notify = self.status_changed?
             if notify 
-<<<<<<< HEAD
-                notifier = Slack::Notifier.new ENV["SLACK_API"]
-=======
                 notifier = Slack::Notifier.new ENV['SLACK_API']
->>>>>>> 7882c893ed26d671323555b6714f6425818d1396
                 notifier.ping "The Elevator: #{self.id} with Serial Number: #{self.serial_number} changed status from *'#{self.status_was}'* to *'#{self.status}'*."
             end
         end
