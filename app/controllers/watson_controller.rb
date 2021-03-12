@@ -16,7 +16,7 @@ class WatsonController < ActionController::Base
         text_to_speech = TextToSpeechV1.new(
             authenticator: authenticator
         )
-        text_to_speech.service_url = "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/b0629bf8-7de7-4d25-831f-39083fe5af36"
+        text_to_speech.service_url = ENV['TEXT_TO_SPEECH_URL']
             
         message = "Greetings user #{current_user.id}. There are currently #{Elevator.count} elevators deployed in the #{Building.count} 
         buildings of your #{Customer.count} customers. Currently, #{Elevator.where(status: 'Inactive').count} elevators are not in Running Status 
