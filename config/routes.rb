@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # Authenticates Blazer Using Devise
-  authenticate :user, ->(user) { user.superadmin_role? } do
+  authenticate :user, ->(user) { user.superadmin_role? or user.employee_role? } do
     mount Blazer::Engine, at: "blazer"
   end
 
@@ -22,7 +22,8 @@ Rails.application.routes.draw do
 
   get "/index" => "pages#index"
 
-  get 'welcome' => 'watson#welcome'
+  #get 'welcome' => 'watson#welcome'
+  match '/watson'     => 'watson#speak', via: :get
   
   # /quotes is the action from the form in quote.html.erb
   post "/quotes" => "quotes#create"
