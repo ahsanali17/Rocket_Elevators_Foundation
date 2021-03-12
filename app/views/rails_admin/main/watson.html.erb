@@ -1,7 +1,15 @@
 <div id="watson">
     <% if current_user.superadmin_role? %>
         <audio id="audio" controls>
-        <source src="<%= audio_path 'audio.mp3'%>" type="audio/mpeg">
+        <source src="<%= audio_path '/speech.mp3'%>" type="audio/mp3">
         </audio>
-    <%end %>
+    <%end %>    
+
+    <%# <script> 
+        $('#watson').on('click', ()=>{
+            var audio = $('#audio').get(0);
+            audio.paused? audio.play():audio.pause()
+            audio.paused? $('#watson').text('PLAY'):$('#watson').text('PAUSE')
+        })
+    </script> %>
 </div>

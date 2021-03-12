@@ -1,35 +1,31 @@
 class WatsonController < ApplicationController
+    require "ibm_watson"
     require "ibm_watson/authenticators"
     require "ibm_watson/text_to_speech_v1"
     include IBMWatson
 
     def welcome
         authenticator = IBMWatson::Authenticators::IamAuthenticator.new(
-            apikey: ENV["TEXT_TO_SPEECH_APIKEY"]
+            apikey: ENV["TEXT_TO_SPEECH_IAM_APIKEY"]
         )
         text_to_speech = TextToSpeechV1.new(
             authenticator: authenticator
         )
-        text_to_speech.service_url = "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/b0629bf8-7de7-4d25-831f-39083fe5af36"
+        text_to_speech.service_url = ENV["TEXT_TO_SPEECH_URL"]
 
-        name = "#{current_employee.first_name} #{current_employee.last_name}"
-        total_elevators = Elevator.count
-        total_buildings = Building.count
-        total_customers = Customer.count
-        out_of_service = Elevator.where.not(status:'active').count
-        total_quotes = Quote.count
-        total_leads = Lead.count
-        total_batteries = Battery.count
-        total_cities = Address.distinct.count(:city)
+        message = "Greetings user #{current_user.id}. There are currently #{Elevator::count} elevators deployed in the #{Building::count} 
+                buildings of your #{Customer::count} customers. Currently, #{Elevator.where(status: 'Intervention').count} elevators are not in Running Status 
+                and are being serviced. You currently have #{Quote::count} quotes awaiting processing. You currently have #{Lead::count} leads in your contact 
+                requests #{Battery::count} Batteries are deployed across #{Address.where(id: Building.select(:address_building).distinct).select(:city).distinct.count} cities."
 
-        File.open("app/assets/audio/welcome.wav", "wb") do |audio|
+        File.open("public/speech.mp3", "wb") do |audio|
             response = text_to_speech.synthesize(
-                text: "Welcome, #{name}. You have #{total_elevators.to_s} elevators deployed in #{total_buildings.to_s} building belonging to #{total_customers.to_s} customers. Currently there are #{out_of_service.to_s} elevators out of service and #{total_quotes.to_s} quotes waiting to be processed. There are also #{total_leads.to_s} leads waiting and #{total_batteries.to_s} batteries running across #{total_cities.to_s} cities",
-                accept: "audio/wav",
+                text: message,
+                accept: "audio/mp3",
                 voice: "en-GB_KateVoice"
             )
-            audio.write(response.result)
-            redirect_back(fallback_location:"/")
+            puts response
+            audio_file.write(response)
         end
     end
 end
