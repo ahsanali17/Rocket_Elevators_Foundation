@@ -1,31 +1,36 @@
-class WatsonController < ApplicationController
-    require "ibm_watson"
-    require "ibm_watson/authenticators"
-    require "ibm_watson/text_to_speech_v1"
-    include IBMWatson
+require "json"
+require "ibm_watson"
+require "ibm_watson/authenticators"
+require "ibm_watson/text_to_speech_v1"
+include IBMWatson
 
-    def welcome
-        authenticator = IBMWatson::Authenticators::IamAuthenticator.new(
-            apikey: ENV["TEXT_TO_SPEECH_IAM_APIKEY"]
+
+class WatsonController < ActionController::Base
+    skip_before_action :verify_authenticity_token
+
+  
+    def speak
+  
+        authenticator = Authenticators::IamAuthenticator.new(
+            apikey: ENV["TEXT_TO_SPEECH_APIKEY"]
         )
         text_to_speech = TextToSpeechV1.new(
             authenticator: authenticator
         )
-        text_to_speech.service_url = ENV["TEXT_TO_SPEECH_URL"]
+        text_to_speech.service_url = "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/b0629bf8-7de7-4d25-831f-39083fe5af36"
+            
+        message = "Greetings user #{current_user.id}"
 
-        message = "Greetings user #{current_user.id}. There are currently #{Elevator::count} elevators deployed in the #{Building::count} 
-                buildings of your #{Customer::count} customers. Currently, #{Elevator.where(status: 'Intervention').count} elevators are not in Running Status 
-                and are being serviced. You currently have #{Quote::count} quotes awaiting processing. You currently have #{Lead::count} leads in your contact 
-                requests #{Battery::count} Batteries are deployed across #{Address.where(id: Building.select(:address_building).distinct).select(:city).distinct.count} cities."
+        response = text_to_speech.synthesize(
+            text: message,
+            accept: "audio/wav",
+            voice: "en-GB_KateV3Voice"
+        ).result
 
-        File.open("/public/watson.wav", "wb") do |audio|
-            response = text_to_speech.synthesize(
-                text: message,
-                accept: "audio/wav",
-                voice: "en-GB_KateVoice"
-            )
-            puts response
-            audio_file.write(response)
-        end
+        File.open("#{Rails.root}/public/hello_world.wav", "wb") do |audio_file|
+                        audio_file.write(response)
+        end 
+           
     end
 end
+
