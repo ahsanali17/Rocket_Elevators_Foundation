@@ -55,7 +55,7 @@ module RailsAdmin
                   @data << {id: building.id,
                           location: fullAddress,
                           floor: numFloor,
-                          client: building.customer.full_name_of_company_contact, 
+                          client: building.customer.company_name, 
                           lat: @lat, lng: @lng,  
                           battery: numBattery, column: numColumns, elevator: numElevators,
                           technician: building.full_name_of_the_technical_contact_for_the_building}

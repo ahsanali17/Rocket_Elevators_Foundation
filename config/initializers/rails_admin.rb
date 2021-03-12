@@ -31,6 +31,7 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   require Rails.root.join('lib','rails_admin','map_action.rb')
+  require Rails.root.join('lib', 'rails_admin', 'watson.rb')
   
   config.actions do
     dashboard                     # mandatory
@@ -42,6 +43,7 @@ RailsAdmin.config do |config|
     edit
     delete
     map
+    watson
     #show_in_app
     
 
