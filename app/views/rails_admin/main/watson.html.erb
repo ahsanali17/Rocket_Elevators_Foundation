@@ -1,7 +1,7 @@
 <div id="watson">
     <% if current_user.superadmin_role? %>
         <audio id="audio" controls>
-        <source src="<%= audio_path '/speech.mp3'%>" type="audio/mp3">
+        <source src="<%= '/watson.wav'%>" type="audio/wav">
         </audio>
     <%end %>    
 

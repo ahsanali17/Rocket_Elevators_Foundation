@@ -18,10 +18,10 @@ class WatsonController < ApplicationController
                 and are being serviced. You currently have #{Quote::count} quotes awaiting processing. You currently have #{Lead::count} leads in your contact 
                 requests #{Battery::count} Batteries are deployed across #{Address.where(id: Building.select(:address_building).distinct).select(:city).distinct.count} cities."
 
-        File.open("public/speech.mp3", "wb") do |audio|
+        File.open("/public/watson.wav", "wb") do |audio|
             response = text_to_speech.synthesize(
                 text: message,
-                accept: "audio/mp3",
+                accept: "audio/wav",
                 voice: "en-GB_KateVoice"
             )
             puts response
