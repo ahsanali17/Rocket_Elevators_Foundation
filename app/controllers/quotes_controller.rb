@@ -164,10 +164,10 @@ class QuotesController < ApplicationController
               Based on the calculations, there are #{@quote.required_columns} columns required, with #{@quote.required_shafts} elevator shafts.
               This project is calculated to cost #{@quote.sub_total}, with #{@quote.installation_fee} in installation fees, for a total price of #{@quote.total}."
       }, 
-      # :requester => { 
-      #     "name": @quote.contact_name, 
-      #     "email": @quote.email 
-      # },
+      :requester => { 
+          "name": @quote.contact_name, 
+          # "email": @quote.email 
+      },
       :priority => "normal",
       :type => "question"
       )

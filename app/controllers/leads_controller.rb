@@ -74,21 +74,25 @@ class LeadsController < ApplicationController
             config.username = ENV['ZENDESK_USERNAME']
             config.token = ENV['ZENDESK_TOKEN']
         end
+
+        if @lead.attachment
+            attachment_message = "There is an attachment to this form."
+        end
         
         ZendeskAPI::Ticket.create!(client, 
             :subject => "#{@lead.full_name_of_contact} from #{@lead.company_name}", 
             :comment => { 
                 :value => "The contact #{@lead.full_name_of_contact} from company #{@lead.company_name} who can be reached at email  #{@lead.email} and at phone number #{@lead.phone}. 
                     #{@lead.department_in_charge_of_elevators} has a project named #{@lead.project_name} which would require contribution from Rocket Elevators.
-                    \n\n
                     Project Description
-                    #{@lead.project_description}\n\n
-                    Attached Message: #{@lead.message}"
+                    #{@lead.project_description}
+                    Attached Message: #{@lead.message}
+                    #{attachment_message}"
             }, 
-            # :requester => { 
-            #     "name": @lead.full_name_of_contact, 
-            #     "email": @lead.email 
-            # },
+            :requester => { 
+                "name": @lead.full_name_of_contact, 
+                # "email": @lead.email 
+            },
             :priority => "normal",
             :type => "question"
             )
