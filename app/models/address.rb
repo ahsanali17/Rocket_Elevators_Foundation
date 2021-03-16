@@ -1,6 +1,6 @@
 class Address < ApplicationRecord
-    has_one :customer
-    has_one :building
+    has_one :customer, dependent: :destroy
+    has_one :building, dependent: :destroy
 
     #Using the formatted_address method to generate an address in the required format.
     geocoded_by :formatted_address
