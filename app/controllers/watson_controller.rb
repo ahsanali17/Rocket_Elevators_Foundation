@@ -7,7 +7,6 @@ include IBMWatson
 class WatsonController < ActionController::Base
     skip_before_action :verify_authenticity_token
 
-  
     def speak
   
         authenticator = Authenticators::IamAuthenticator.new(
