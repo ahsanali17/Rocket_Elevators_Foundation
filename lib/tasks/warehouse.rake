@@ -71,6 +71,29 @@ namespace :warehouse do
         end #Customer
         puts "Customers Imported"
 
+        WarehouseRecord.connection.execute("TRUNCATE fact_interventions")
+
+        #fact_intervention fake data 
+        10.times do 
+            result = ["Success", "Failure", "Incomplete"].sample
+            status = ["Pending", "InProgress", "Interrupted", "Resumed", "Complete"].sample 
+        
+            FactIntervention.create!({
+                employee_id: Faker::Number.within(range: 1..50), #=> 1968353479,
+                building_id: Faker::Number.within(range: 1..50),
+                battery_id: Faker::Number.within(range: 1..50),
+                column_id: Faker::Number.within(range: 1..100),
+                elevator_id: Faker::Number.within(range: 1..10),
+                start_of_intervention: Faker::Time.backward(days: 5, period: :morning, format: :short),
+                end_of_intervention: Faker::Time.forward(days: 5, period: :morning, format: :short),
+                result: result,   #Success, Failure or Incomplete
+                report: nil, 
+                status: status    #Pending, InProgress, Interrupted, Resumed or Complete
+            })
+        end
+        puts "Interventions Imported"
+
+
         puts "Import Ended"
     end #task
 end #namespace
