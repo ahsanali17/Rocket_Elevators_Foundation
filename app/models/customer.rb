@@ -2,6 +2,7 @@ class Customer < ApplicationRecord
     belongs_to :user
     belongs_to :address
     has_many :buildings, dependent: :destroy
+    has_many :leads, dependent: :destroy
 
     after_create :send_file_to_dropbox
     after_update :send_file_to_dropbox
