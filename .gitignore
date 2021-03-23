@@ -27,10 +27,10 @@
 /config/master.key
 
 #Ignore databse config
-/config/database.yml
+#/config/database.yml
 
 # Ignore application configuration
-/config/application.yml
-sendgrid.env
-sendgrid.env
-sendgrid.env source ./sendgrid.env
+#/config/application.yml
+# sendgrid.env
+# sendgrid.env
+# sendgrid.env source ./sendgrid.env
