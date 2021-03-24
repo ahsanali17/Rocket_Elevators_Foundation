@@ -1,0 +1,16 @@
+<div class="card card-default">
+  <div class="card-block">
+    <form action="/interventions" method="post" id="interventions-form">
+      <%= form_with model: @intervention, id: "intervention_form" do |f|%>
+        <%= f.select :customers, Customer.all.collect {[customers] [customers.id]}, prompt: "Select a Customer" %>
+        <%= f.select :buildings, Building.all.collect {[building] [building.id]}, prompt: "Select a Building" %>
+        <%= f.select :batteries, Battery.all.collect {[battery] [battery.id]}, prompt: "Select a Battery" %>
+        <%= f.select :columns, Column.all.collect {[column] [column.id]}, prompt: "Select a Column" %>
+        <%= f.select :elevators, Elevator.all.collect {[elevator] [elevator.id]}, prompt: "Select a Elevator" %>
+        <%= f.select :employees, Employee.all.collect {[employee] [employee.id]}, prompt: "Select a Employee" %>
+        <%= f.textarea %>
+        <%= f.button :submit, class: "btn-primary" %>
+      <% end %>
+    </form>
+  </div>
+</div>

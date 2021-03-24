@@ -28,7 +28,7 @@ ZENDESK_USERNAME: ahsantime1@gmail.com
 ZENDESK_URL: https://rocketelevators3072.zendesk.com/api/v2
 
 # SendGrid Keys
-SENDGRID_API: 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 #Needs to be changed
+SENDGRID_API_KEY: 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
 
 #Google Maps 
 GOOGLE_MAPS_API: AIzaSyBi7a4uC8sjhn7lQcbE3KE9RsxPfIrUM_I

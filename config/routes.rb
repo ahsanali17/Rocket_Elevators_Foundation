@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :interventions
   devise_for :users
   
   resources :quotes
@@ -26,6 +27,8 @@ Rails.application.routes.draw do
 
   get '/watson/update' => 'watson#speak'
   
+  get "/interventions" => "pages#interventions"
+
   # /quotes is the action from the form in quote.html.erb
   post "/quotes" => "quotes#create"
 

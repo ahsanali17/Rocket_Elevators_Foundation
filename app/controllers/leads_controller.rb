@@ -2,7 +2,7 @@ class LeadsController < ApplicationController
     def sendGrid_email_sender
         # require 'sendgrid-ruby'
         mail = SendGrid::Mail.new
-        mail.from = SendGrid::Email.new(email: 'ahsantime1@gmail.com')
+        mail.from = SendGrid::Email.new(email: 'ahsantime2@gmail.com')
         custom = SendGrid::Personalization.new
         custom.add_to(SendGrid::Email.new(email: @lead[:email]))
         custom.add_dynamic_template_data({
@@ -13,8 +13,8 @@ class LeadsController < ApplicationController
         mail.add_personalization(custom)
 
         # Our template ID to display the one we want & our API key connector
-        mail.template_id ='d-28033aca18914f9d875a7a233454197a'
-        our_key = SendGrid::API.new(api_key: ENV['SENDGRID_API'])
+        mail.template_id ='d-136a63a4c1404f40aaabe27a248376aa'
+        our_key = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
 
         # Sends the info above to the API's website
         begin
