@@ -23,7 +23,7 @@ class InterventionsController < ApplicationController
     # DECLARING VARIABLES  
     #===================================================================================================
     @interventions= Intervention.new()
-    @interventions.author = [current_user.id]
+    @interventions.author = current_user.id
     # @interventions.author = Employee.find_by(user_id: current_user.id)
     @interventions.battery_id = params[:battery]
     @interventions.building_id = params[:buildings]
