@@ -1,23 +1,5 @@
 class InterventionsController < ApplicationController
   # POST /quotes or /quotes.json
-  
-  def get_building_by_customer_list
-    @interventions = Intervention.where("customer_id = ?", params[:customer_id])
-    respond_to do |format|
-      format.json { render :json => @interventions }
-    end
-  end
-  
-  def building_search
-    if params[:customers].present? && params[:customers].strip != ""
-      @interventions = Intervention.where("customer_id = ?", params[:customer_id])
-    else
-      @interventions = Intervention.all
-    end
-  end
-  
-  
-  
   def create
     #===================================================================================================
     # DECLARING VARIABLES  
@@ -25,7 +7,7 @@ class InterventionsController < ApplicationController
     @interventions= Intervention.new()
     @interventions.author = current_user.id
     # @interventions.author = Employee.find_by(user_id: current_user.id)
-    @interventions.battery_id = params[:battery]
+    @interventions.battery_id = params[:batteries]
     @interventions.building_id = params[:buildings]
     @interventions.column_id = params[:columns]
     @interventions.customer_id = params[:customers]

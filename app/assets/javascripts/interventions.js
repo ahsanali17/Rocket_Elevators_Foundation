@@ -1,40 +1,90 @@
-$(function() {
+$(document).ready(function () {
 
-    if ($("select#customer").val() == "") {
-     $("select#building option").remove();
-     var row = "<option value=\"" + "" + "\">" + "Building ID" + "</option>";
-     $(row).appendTo("select#building");
+    var value = ""
+    var data 
+
+    hideBuilding()
+
+
+    $('#customer_id').change(async function (event){
+        value = $(this).val()
+        if (value ==="") {
+            hideBuilding()
+        } else {
+            $('building_id').show()
+            let buildings = [new Option("Select a building", "")]
+            data = await getData(value, "building")
+            data.forEach((element) => {buildings.push(new Option(`${element.full_name_of_the_technical_contact_for_the_building}, Building ID: ${element.id}`, element.id))})
+            $('#building_id').html(buildings)
+        }
+    })
+
+
+    $('#building_id').change(async function (event){
+        value = $(this).val()
+        if (value ==="") {
+            hideBattery()
+        } else {
+            $('battery_id').show()
+            let batteries = [new Option("Select a battery", "")]
+            data = await getData(value, "battery")
+            data.forEach((element) => {batteries.push(new Option(`Battery ID: ${element.id}`, element.id))})
+            $('#battery_id').html(batteries)
+        }
+    })
+
+    $('#battery_id').change(async function (event){
+        value = $(this).val()
+        if (value ==="") {
+            hideColumn()
+        } else {
+            $('column_id').show()
+            let columns = [new Option("Select a column", "")]
+            data = await getData(value, "column")
+            data.forEach((element) => {column.push(new Option(`Battery ID: ${element.id}`, element.id))})
+            $('#column_id').html(columns)
+        }
+    })
+
+    $('#column_id').change(async function (event){
+        value = $(this).val()
+        if (value ==="") {
+            hideElevator()
+        } else {
+            $('elevator_id').show()
+            let elevators = [new Option("Select a battery", "")]
+            data = await getData(value, "elevator")
+            data.forEach((element) => {elevators.push(new Option(`Elevator ID: ${element.id}`, element.id))})
+            $('#elevator_id').html(elevators)
+        }
+    })
+
+
+    function hideBuilding() {
+        $('#buildings').hide()
+        hideBattery()
     }
-    $("select#customer").change(function() {
-     var id_value_string = $(this).val();
-     if (id_value_string == "") {
-      $("select#building option").remove();
-      var row = "<option value=\"" + "" + "\">" + "Building ID" + "</option>";
-      $(row).appendTo("select#building");
-     } else {
-      // Send the request and update course dropdown
-      $.ajax({
-       dataType: "json",
-       cache: false,
-       url: '/get_building_by_customer_list/' + id_value_string,
-       timeout: 5000,
-       error: function(XMLHttpRequest, errorTextStatus, error) {
-        alert("Failed to submit : " + errorTextStatus + " ;" + error);
-       },
-       success: function(data) {
-        // Clear all options from course select
-        $("select#building option").remove();
-        //put in a empty default line
-        var row = "<option value=\"" + "" + "\">" + "Building" + "</option>";
-        $(row).appendTo("select#building");
-        // Fill course select
-        $.each(data, function(i, j) {
-         row = "<option value=\"" + j.id + "\">" + j.title + "</option>";
-         $(row).appendTo("select#building");
-        });
-       }
-      });
-     }
-    });
- 
-   });
+
+    function hideBattery() {
+        $('#battery_id').hide()
+        hideColumn()
+    }
+
+    function hideColumn() {
+        $('#column_id').hide()
+        hideElevator()
+    }
+
+    function hideElevator() {
+        $('#elevator_id').hide()
+    }
+
+
+    async function getData(id, value){
+        const data = await $.ajax({
+            type: 'GET',
+            url: `/ajax/GetData?id=${id}&value=${value}`,
+        })
+        return data
+    }
+})

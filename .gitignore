@@ -30,9 +30,6 @@
 #/config/database.yml
 
 # Ignore application configuration
-#/config/application.yml
-# sendgrid.env
-# sendgrid.env
-# sendgrid.env source ./sendgrid.env
+/config/application.yml
 sendgrid.env
 sendgrid.env source ./sendgrid.env
