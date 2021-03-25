@@ -27,6 +27,7 @@
   //= require plugins/owl-carousel/owl.carousel.min
   //= require plugins/jquery.nav.min
   //= require jquery_ujs
+  //= require interventions
   //= require toastr
   //= require chartkick
   //= require Chart.bundle

@@ -35,4 +35,8 @@ Rails.application.routes.draw do
   # /leads is the action from the form in index.html.erb
   post "/leads" => "leads#create"
 
+  # get '/interventions', to: 'interventions#index'  
+  # get 'get_building_by_customer_list/:customer_id', => 'intervention#building_search'
+
+
 end

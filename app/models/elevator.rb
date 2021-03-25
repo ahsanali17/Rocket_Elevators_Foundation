@@ -1,7 +1,8 @@
 class Elevator < ApplicationRecord
     belongs_to :column
     before_save :twilio_txt
-
+    has_many :interventions
+    
     # When an elevator changes its status to Intervention, a message is sent to the technician responsible for the building
     def twilio_txt
         notify = self.status_changed?
