@@ -1,40 +1,54 @@
 class InterventionsController < ApplicationController
   # POST /quotes or /quotes.json
-  
-  def get_building_by_customer_list
-    @interventions = Intervention.where("customer_id = ?", params[:customer_id])
-    respond_to do |format|
-      format.json { render :json => @interventions }
-    end
-  end
-  
-  def building_search
-    if params[:customers].present? && params[:customers].strip != ""
-      @interventions = Intervention.where("customer_id = ?", params[:customer_id])
+ 
+  def getData
+    params = request.query_parameters{"id"}
+    # field = request.query_parameters{"value"}
+    puts "**********Id & Field***************"
+    puts params 
+    puts "**********----------**********"
+
+    @data = " "
+
+    if params[:value] == "building"  
+      @data = Building.where(customer_id: params[:id])
+    elsif  params[:value] == "battery"
+      @data = Battery.where(building_id: params[:id])
+    elsif  params[:value] == "column"
+      @data = Column.where(battery_id: params[:id])
+    elsif  params[:value] == "elevator"
+      @data = Elevator.where(column_id: params[:id]) 
     else
-      @interventions = Intervention.all
+      @data = " "
     end
+
+    puts "************Data****************"
+    puts @data
+    puts "************----**************"
+
+    return render json: @data 
+
   end
-  
-  
-  
+ 
+
   def create
+   
     #===================================================================================================
     # DECLARING VARIABLES  
     #===================================================================================================
     @interventions= Intervention.new()
     @interventions.author = current_user.id
     # @interventions.author = Employee.find_by(user_id: current_user.id)
-    @interventions.battery_id = params[:battery]
-    @interventions.building_id = params[:buildings]
-    @interventions.column_id = params[:columns]
+    @interventions.battery_id = params[:batteries] unless params[:columns] !=nil 
+    @interventions.building_id = params[:buildings] 
+    @interventions.column_id = params[:columns] unless params[:elevators] !=nil
     @interventions.customer_id = params[:customers]
-    @interventions.elevator_id = params[:elevators]
+    @interventions.elevator_id = params[:elevators] 
     @interventions.employee_id = params[:employees]
     @interventions.start_of_intervention = params[:start_of_intervention]
     @interventions.end_of_intervention = params[:end_of_intervention]
-    @interventions.result = params[:result]
     @interventions.report = params[:report]
+    @interventions.result = params[:result]
     @interventions.status = "Pending"
     #===================================================================================================
     # SAVE AND REDIRECT

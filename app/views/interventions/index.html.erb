@@ -1,63 +1,65 @@
-<div class="card card-default">
-  <div class="card-block">
-    <!-- PAGE HEADER -->
-    <section class="page-header page-header-xlg parallax parallax-4" style = "background-image: url(<%= asset_path("Rocket_Elevator_Assets/Quote/AdobeStock_556688421.jpg") %>)">
-        <div class="overlay dark-4"><!-- dark overlay [1 to 9 opacity] --></div>
+<html>
+  <head>
+    <%= javascript_include_tag "interventions" %>
+  </head>
 
-        <div class="container">
+  <body>
 
+    <div class="card card-default">
+      <div class="card-block">
+        <!-- PAGE HEADER -->
+        <section class="page-header page-header-xlg parallax parallax-4" style = "background-image: url(<%= asset_path("Rocket_Elevator_Assets/Quote/AdobeStock_556688421.jpg") %>)">
+          <div class="overlay dark-4"><!-- dark overlay [1 to 9 opacity] --></div>
+
+          <div class="container">
             <div class="bold font-raleway wow fadeInUp animated">
-                <h2 class="fs-55 fw-400 text-center">Find Intervention</h2>
+              <h2 class="fs-55 fw-400 text-center">Find Intervention</h2>
             </div>
+          </div>
 
-        </div>
-    </section>
-    <!-- /PAGE HEADER -->
-    
-    <form action="/interventions" method="post" id="interventions-form">
-      <%= form_with model: @intervention, id: "intervention_form" do |f|%>
+        </section>
+        <!-- /PAGE HEADER -->
         
-        <div class="col-lg-12 text-center offset-lg-12">       
-          <%= f.select :customers, Customer.all.collect {|customers| [customers.id]}, prompt: "Select a Customer", required: true%>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.select :buildings, Building.all.collect {|buildings| [buildings.id]}, prompt: "Select a Building", required: true%>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.select :batteries, Battery.all.collect {|batteries| [batteries.id]}, prompt: "Select a Battery" %>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.select :columns, Column.all.collect {|columns| [columns.id]}, prompt: "Select a Column" %>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.select :elevators, Elevator.all.collect {|elevators| [elevators.id]}, prompt: "Select a Elevator" %>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.select :employees, Employee.all.collect {|employees| [employees.id]}, prompt: "Select a Employee" %>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">  
-          <%= f.text_area :report %>
-        </div>
-        <br>
-        <div class="col-lg-12 text-center offset-lg-12">
-          <%= f.button :submit, class: "btn-primary" %>
-        </div>
-      <% end %>
-    </form>
+        <form action="/interventions" method="post" id="interventions-form">
+          <%= form_with model: @intervention, id: "interventions_form" do |f|%>
+            
+            <div class="col-lg-12 text-center offset-lg-12">       
+              <%= f.select :customers, Customer.all.collect {|customers| [customers.company_name + ", Customer ID:" + customers.id.to_s, customers.id]}, prompt: "Select a Customer", required: true%>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.select :buildings, Building.all.collect {|buildings| [buildings.id]}, prompt: "Select a Building", required: true%>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.select :batteries, Battery.all.collect {|batteries| [batteries.id]}, prompt: "Select a Battery" %>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.select :columns, Column.all.collect {|columns| [columns.id]}, prompt: "Select a Column" %>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.select :elevators, Elevator.all.collect {|elevators| [elevators.id]}, prompt: "Select a Elevator" %>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.select :employees, Employee.all.collect {|employees| [employees.id]}, prompt: "Select a Employee" %>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">  
+              <%= f.text_area :report %>
+            </div>
+            <br>
+            <div class="col-lg-12 text-center offset-lg-12">
+              <%= f.button :submit, class: "btn-primary" %>
+            </div>
+          <% end %>
+        </form>
 
-    <%# <div class="row" id="intervention_listing"> %>
-      <%# <%= render partial: "customer_list", locals: {interventons: @interventions} %> 
-    <%# </div> %>
-    <%# <% interventions.each do |interventions| %> 
-      <%# <%= customer.id %> 
-      <%# <hr /> %>
-    <%# <% end %>
+      </div>
+    </div>
 
-  </div>
-</div>
+  </body>
+
+</html>

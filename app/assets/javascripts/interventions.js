@@ -1,40 +1,95 @@
-$(function() {
+$(document).ready(function () {
 
-    if ($("select#customer").val() == "") {
-     $("select#building option").remove();
-     var row = "<option value=\"" + "" + "\">" + "Building ID" + "</option>";
-     $(row).appendTo("select#building");
-    }
-    $("select#customer").change(function() {
-     var id_value_string = $(this).val();
-     if (id_value_string == "") {
-      $("select#building option").remove();
-      var row = "<option value=\"" + "" + "\">" + "Building ID" + "</option>";
-      $(row).appendTo("select#building");
-     } else {
-      // Send the request and update course dropdown
-      $.ajax({
-       dataType: "json",
-       cache: false,
-       url: '/get_building_by_customer_list/' + id_value_string,
-       timeout: 5000,
-       error: function(XMLHttpRequest, errorTextStatus, error) {
-        alert("Failed to submit : " + errorTextStatus + " ;" + error);
-       },
-       success: function(data) {
-        // Clear all options from course select
-        $("select#building option").remove();
-        //put in a empty default line
-        var row = "<option value=\"" + "" + "\">" + "Building" + "</option>";
-        $(row).appendTo("select#building");
-        // Fill course select
-        $.each(data, function(i, j) {
-         row = "<option value=\"" + j.id + "\">" + j.title + "</option>";
-         $(row).appendTo("select#building");
-        });
-       }
-      });
-     }
+    var value = "";
+    var data; 
+
+    hideBuilding()
+
+
+    $('#customers').change(async function (event){
+        event.stopImmediatePropagation();
+        value = $(this).val()
+        if (value ==="") {
+            hideBuilding()
+        } else {
+            $('#buildings').show()
+            let buildings = [new Option("Select a building", "")]
+            data = await getData(value, "building")
+            data.forEach((element) => {buildings.push(new Option(`${element.full_name_of_the_technical_contact_for_the_building}, Building ID: ${element.id}`, element.id))})
+            $('#buildings').html(buildings)
+        }
     });
- 
-   });
+
+
+    $('#buildings').change(async function (event){
+        event.stopImmediatePropagation();
+        value = $(this).val()
+        if (value ==="") {
+            hideBattery()
+        } else {
+            $('#batteries').show()
+            let batteries = [new Option("Select a battery", "")]
+            data = await getData(value, "battery")
+            data.forEach((element) => {batteries.push(new Option(`Battery ID: ${element.id}`, element.id))})
+            $('#batteries').html(batteries)
+        }
+    });
+
+    $('#batteries').change(async function (event){
+        event.stopImmediatePropagation();
+        value = $(this).val()
+        if (value ==="") {
+            hideColumn()
+        } else {
+            $('#columns').show()
+            let columns = [new Option("Select a column", "")]
+            data = await getData(value, "column")
+            data.forEach((element) => {columns.push(new Option(`Column ID: ${element.id}`, element.id))})
+            $('#columns').html(columns)
+        }
+    });
+
+    $('#columns').change(async function (event){
+        event.stopImmediatePropagation();
+        value = $(this).val()
+        if (value ==="") {
+            hideElevator()
+        } else {
+            $('#elevators').show()
+            let elevators = [new Option("Select a elevator", "")]
+            data = await getData(value, "elevator")
+            data.forEach((element) => {elevators.push(new Option(`Elevator ID: ${element.id}`, element.id))})
+            $('#elevators').html(elevators)
+        }
+    });
+
+
+    function hideBuilding() {
+        $('#buildings').hide()
+        hideBattery()
+    }
+
+    function hideBattery() {
+        $('#batteries').hide()
+        hideColumn()
+    }
+
+    function hideColumn() {
+        $('#columns').hide()
+        hideElevator()
+    }
+
+    function hideElevator() {
+        $('#elevators').hide()
+    }
+
+
+    async function getData(id, value){
+        const data = await $.ajax({
+            type: "GET",
+            url: `/ajax/GetData?id=${id}&value=${value}`,
+        })
+        return data
+    }
+
+});
