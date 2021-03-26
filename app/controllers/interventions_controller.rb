@@ -1,6 +1,40 @@
 class InterventionsController < ApplicationController
   # POST /quotes or /quotes.json
+ 
+  def getData
+    params = request.query_parameters{"id"}
+    # field = request.query_parameters{"value"}
+    puts "**********Id & Field***************"
+    puts params 
+    puts "**********----------**********"
+
+    @data = " "
+
+    if params[:value] == "building"  
+      @data = Building.where(customer_id: params[:id])
+      puts "hello"
+    elsif  params[:value] == 'battery'
+      @data = Battery.where(building_id: params[:id])
+    elsif  params[:value] == 'column'
+      @data = Column.where(battery_id: params[:id])
+      puts "Is it working?"
+    elsif  params[:value] == 'elevator'
+      @data = Elevator.where(column_id: params[:id]) 
+    else
+      @data = " "
+    end
+
+    puts "************Data****************"
+    puts @data
+    puts "************----**************"
+
+    return render json: @data 
+
+  end
+ 
+
   def create
+   
     #===================================================================================================
     # DECLARING VARIABLES  
     #===================================================================================================

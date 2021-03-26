@@ -1,63 +1,67 @@
 $(document).ready(function () {
 
-    var value = ""
-    var data 
+    var value = "";
+    var data; 
 
     hideBuilding()
 
 
-    $('#customer_id').change(async function (event){
+    $('#customers').change(async function (event){
+        event.stopImmediatePropagation();
         value = $(this).val()
         if (value ==="") {
             hideBuilding()
         } else {
-            $('building_id').show()
+            $('#buildings').show()
             let buildings = [new Option("Select a building", "")]
             data = await getData(value, "building")
             data.forEach((element) => {buildings.push(new Option(`${element.full_name_of_the_technical_contact_for_the_building}, Building ID: ${element.id}`, element.id))})
-            $('#building_id').html(buildings)
+            $('#buildings').html(buildings)
         }
-    })
+    });
 
 
-    $('#building_id').change(async function (event){
+    $('#buildings').change(async function (event){
+        event.stopImmediatePropagation();
         value = $(this).val()
         if (value ==="") {
             hideBattery()
         } else {
-            $('battery_id').show()
+            $('#batteries').show()
             let batteries = [new Option("Select a battery", "")]
             data = await getData(value, "battery")
             data.forEach((element) => {batteries.push(new Option(`Battery ID: ${element.id}`, element.id))})
-            $('#battery_id').html(batteries)
+            $('#batteries').html(batteries)
         }
-    })
+    });
 
-    $('#battery_id').change(async function (event){
+    $('#batteries').change(async function (event){
+        event.stopImmediatePropagation();
         value = $(this).val()
         if (value ==="") {
             hideColumn()
         } else {
-            $('column_id').show()
+            $('#columns').show()
             let columns = [new Option("Select a column", "")]
             data = await getData(value, "column")
-            data.forEach((element) => {column.push(new Option(`Battery ID: ${element.id}`, element.id))})
-            $('#column_id').html(columns)
+            data.forEach((element) => {columns.push(new Option(`Column ID: ${element.id}`, element.id))})
+            $('#columns').html(columns)
         }
-    })
+    });
 
-    $('#column_id').change(async function (event){
+    $('#columns').change(async function (event){
+        event.stopImmediatePropagation();
         value = $(this).val()
         if (value ==="") {
             hideElevator()
         } else {
-            $('elevator_id').show()
-            let elevators = [new Option("Select a battery", "")]
+            $('#elevators').show()
+            let elevators = [new Option("Select a elevator", "")]
             data = await getData(value, "elevator")
             data.forEach((element) => {elevators.push(new Option(`Elevator ID: ${element.id}`, element.id))})
-            $('#elevator_id').html(elevators)
+            $('#elevators').html(elevators)
         }
-    })
+    });
 
 
     function hideBuilding() {
@@ -66,25 +70,26 @@ $(document).ready(function () {
     }
 
     function hideBattery() {
-        $('#battery_id').hide()
+        $('#batteries').hide()
         hideColumn()
     }
 
     function hideColumn() {
-        $('#column_id').hide()
+        $('#columns').hide()
         hideElevator()
     }
 
     function hideElevator() {
-        $('#elevator_id').hide()
+        $('#elevators').hide()
     }
 
 
     async function getData(id, value){
         const data = await $.ajax({
-            type: 'GET',
+            type: "GET",
             url: `/ajax/GetData?id=${id}&value=${value}`,
         })
         return data
     }
-})
+
+});
