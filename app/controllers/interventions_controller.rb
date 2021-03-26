@@ -12,13 +12,11 @@ class InterventionsController < ApplicationController
 
     if params[:value] == "building"  
       @data = Building.where(customer_id: params[:id])
-      puts "hello"
-    elsif  params[:value] == 'battery'
+    elsif  params[:value] == "battery"
       @data = Battery.where(building_id: params[:id])
-    elsif  params[:value] == 'column'
+    elsif  params[:value] == "column"
       @data = Column.where(battery_id: params[:id])
-      puts "Is it working?"
-    elsif  params[:value] == 'elevator'
+    elsif  params[:value] == "elevator"
       @data = Elevator.where(column_id: params[:id]) 
     else
       @data = " "
@@ -41,16 +39,16 @@ class InterventionsController < ApplicationController
     @interventions= Intervention.new()
     @interventions.author = current_user.id
     # @interventions.author = Employee.find_by(user_id: current_user.id)
-    @interventions.battery_id = params[:batteries]
-    @interventions.building_id = params[:buildings]
-    @interventions.column_id = params[:columns]
+    @interventions.battery_id = params[:batteries] unless params[:columns] !=nil 
+    @interventions.building_id = params[:buildings] 
+    @interventions.column_id = params[:columns] unless params[:elevators] !=nil
     @interventions.customer_id = params[:customers]
-    @interventions.elevator_id = params[:elevators]
+    @interventions.elevator_id = params[:elevators] 
     @interventions.employee_id = params[:employees]
     @interventions.start_of_intervention = params[:start_of_intervention]
     @interventions.end_of_intervention = params[:end_of_intervention]
-    @interventions.result = params[:result]
     @interventions.report = params[:report]
+    @interventions.result = params[:result]
     @interventions.status = "Pending"
     #===================================================================================================
     # SAVE AND REDIRECT
