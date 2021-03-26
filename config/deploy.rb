@@ -3,7 +3,7 @@ lock "~> 3.16.0"
 
 before 'deploy', 'rvm1:install:ruby'
 set :rvm_map_bins, [ 'rake', 'gem', 'bundle', 'ruby', 'puma', 'pumactl' ]
-set :application, "Ahsan_Ali_Syed"
+set :application, "AhsanAliSyed"
 set :repo_url, "https://github.com/ahsanali17/Rocket_Elevators_Foundation"
 
 # Default branch is :master
