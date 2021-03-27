@@ -65,6 +65,38 @@ class InterventionsController < ApplicationController
     puts "===========START================"
     puts params
     puts "=============END================"
+
+    def create_intervention_ticket  
+      client = ZendeskAPI::Client.new do |config|
+        config.url = ENV['ZENDESK_URL']
+        config.username = ENV['ZENDESK_USERNAME']
+        config.token = ENV['ZENDESK_TOKEN']
+      end
+
+      ZendeskAPI::Ticket.create!(client,
+        :subject => "Building: #{@interventions.building_id} requires intervention",
+        :comment => {
+          :value =>
+         "Customer Details: The customer (Company Name): #{@interventions.customer.company_name} \n
+          Building ID: #{@interventions.building_id} \n
+          Battery ID: #{params[:battery]} \n
+          Column ID: #{if (params[:column] == "None") then "" else params[:column] end}
+          Elevators ID: #{if (params[:elevator] == "None") then "" else params[:elevator] end}
+          #{if (@interventions.employee_id) then "The assigned employee to the task is: #{@interventions.employee.firest_name} #{@interventions.employee.last_name}" end}
+          Description: #{@interventions.report}" 
+        }
+        
+        :requester => {
+          "name": Employee.find(@interventions.author).first_name +'' 
+          + Employee.find(@interventions.author).last_name
+        },
+      
+        :type => "problem", 
+        :priority => "normal"      
+      )
+    end  
+
+
   end    
 
 
