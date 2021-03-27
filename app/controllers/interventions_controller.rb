@@ -57,6 +57,7 @@ class InterventionsController < ApplicationController
 
     if @interventions.save!
       # Redirect back to page
+      helpers.ticket_intervention(@interventions, params[:elevators], params[:batteries], params[:columns], params[:elevators])
       redirect_back fallback_location: root_path, notice: "Intervention sucessfull"
     end 
     #===================================================================================================
@@ -65,53 +66,6 @@ class InterventionsController < ApplicationController
     puts "===========START================"
     puts params
     puts "=============END================"
-
-    #===================================================================================================
-    # So null ID's will not be required 
-    #===================================================================================================
-    # if @interventions.elevator_id
-    #   @interventions.battery_id = nil
-    #   @interventions.column_id = nil
-    # elsif @interventions.column_id
-    #   @interventions.battery_id = nil
-    # end  
-
-    #===================================================================================================
-    # Defining the ZendDesk ticket for the interventions form
-    #===================================================================================================
-
-    # def create_intervention_ticket  
-    #   client = ZendeskAPI::Client.new do |config|
-    #     config.url = ENV['ZENDESK_URL']
-    #     config.username = ENV['ZENDESK_USERNAME']
-    #     config.token = ENV['ZENDESK_TOKEN']
-    #   end
-
-    #   ZendeskAPI::Ticket.create!(client,
-    #     :subject => "#{@interventions.customer_id}",
-    #     :comment => {
-    #       :value =>
-    #      "Customer Details: The contact name #{@interventions.author}, from the company #{@customer.company_name} has filled out an intervention form \n
-    #       Building ID: #{@interventions.building_id} \n
-    #       Battery ID: #{@interventions.battery_id} \n
-    #       Column ID: #{@interventions.column_id}
-    #       Elevators ID: #{@interventions.elevator_id} \n
-    #       The assigned employee to the task is: #{@interventions.author} \n
-    #       Description/Report: #{@interventions.report}" 
-    #     }
-        
-    #     :requester => {
-    #       "name": @interventions.company_name,  
-    #       "email": @interventions.email
-    #     },
-      
-    #     :type => "problem", 
-    #     :priority => "Urgent"      
-    #   )
-    
-    # end  
-
-
   end    
 
 
