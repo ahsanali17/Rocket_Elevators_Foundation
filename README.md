@@ -21,7 +21,9 @@ Week 7 - This week, the task set to us is to integrate 7 different APIs into the
 5. SendGrid
 6. IBM Watson
 7. ZenDesk 
- 
+
+
+Week 9 - This week is mean't for us to implement additional functionality to our backoffice, create an interventions form that uses the Zendesk API to send out tickets and using Microsft Azure to deploy our Rest API so that we can test out our PUT & GET requests from postman. (The Rest API repo link is above)  
  
 📌 Instructions to access to the admin panel:
 
@@ -67,6 +69,7 @@ To login as Employee:
 9. Customer
 10. Elevator
 11. Lead
+12. Interventions (Has it own collections folder in Postman)
 
 📌 The queries in postgres:
 1. Fact Quote
