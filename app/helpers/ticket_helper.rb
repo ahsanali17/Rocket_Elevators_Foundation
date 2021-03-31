@@ -29,7 +29,7 @@ module TicketHelper
 
         # Condition for check if a employee is assign in the form, else take the author and get the full name using the methode :full_name in the model Employee
         if params[:employees] == nil
-            employee_assigns = Intervention.find(params[:author])
+            employee_assigns = Intervention.find(params[:author]).id
         else
             employee_assigns = Employee.find(params[:employees]).full_name
         end
