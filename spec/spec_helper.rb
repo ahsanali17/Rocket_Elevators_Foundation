@@ -17,9 +17,9 @@ WebMock.disable_net_connect!(allow_localhost: true)
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before(:each) do
-    stub_request(:get, 'https://covid-19-data.p.rapidapi.com/report/country/name?date=2020-04-01&name=Canada&date-format=YYYY-MM-DD&format=json').
+    stub_request(:get, 'https://covid-19-data.p.rapidapi.com/report/country/name?date=2020-04-01&date-format=YYYY-MM-DD&format=json&name=Quebec').
       with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(status: 200, body:'{"province"=>"Quebec", "confirmed"=>4611, "recovered"=>0, "deaths"=>33, "active"=>0}', headers: {})
+      to_return(status: 200, body: '{"province": "Quebec", "confirmed": 4611, "recovered": 0, "deaths": 33, "active": 0}', headers: {})
   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -18,7 +18,7 @@ module ElevatorMedia
             puts"-------------"
             puts result
             puts"-------------"
-            return("<div>#{result[0]['country']}</div>")    
+            return("<div>#{result['province']}</div>")    
             # return '<div>result[0]["Canada"]</div>'  
         end
     end 
