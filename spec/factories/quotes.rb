@@ -1,5 +1,5 @@
-FactoryBot.define do
-  factory :quotes do
+# FactoryBot.define do
+#   factory :quotes do
     
-  end
-end
+#   end
+# end

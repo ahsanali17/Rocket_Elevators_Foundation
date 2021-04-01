@@ -1,5 +1,4 @@
 # FactoryBot.define do
-#   factory :leads do
-    
+#   factory :customers do
 #   end
 # end
