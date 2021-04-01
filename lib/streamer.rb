@@ -13,13 +13,11 @@ module ElevatorMedia
             request["x-rapidapi-key"] = 'ad79b44e5bmsh2b6210a3ef29223p1a5ee5jsncc406e22144a'
             request["x-rapidapi-host"] = 'covid-19-data.p.rapidapi.com'
             response = http.request(request)
-            puts response.read_body
-            result = JSON.parse(response.read_body)
+            result = JSON.parse(response.read_body)    
             puts"-------------"
             puts result
             puts"-------------"
-            return("<div>#{result['province']}</div>")    
-            # return '<div>result[0]["Canada"]</div>'  
+            return("<div>#{result['province']}</div>")
         end
     end 
 end
