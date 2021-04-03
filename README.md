@@ -22,11 +22,6 @@ Week 7 - This week, the task set to us is to integrate 7 different APIs into the
 6. IBM Watson
 7. ZenDesk 
 
-
-Week 9 - This week is mean't for us to implement additional functionality to our backoffice, create an interventions form that uses the Zendesk API to send out tickets and using Microsft Azure to deploy our Rest API so that we can test out our PUT & GET requests from postman. (The Rest API repo link is above)  
- 
-Week 10 - This week we used rspec to create tests on our informatin system. All files related to the test can be found in ./spec & ./lib; to test the streamer_spec.rb simply run a command in the terminal (make sure you're at the file directory in the terminal to run the 'rspec spec' command so if you git clone this repo into a file called rocket-foundation make sure you're inside that file then run the command.) after that you'll see all tests will run successfully.
-
 📌 Instructions to access to the admin panel:
 
 To login as Admin:
@@ -138,3 +133,21 @@ API Info
 7. ZenDesk
 
     ZenDesk takes the info from a submitted lead or quote and submits it to a ticket in the ZenDesk workspace for RocketElevators to see and deal with. The tickets can be seen at https://rocketelevators8608.zendesk.com/agent/filters/360208008033, and logged into using the email "olaadetula@gmail.com" and password "123456".
+
+
+Week 9 - This week is mean't for us to implement additional functionality to our backoffice, create an interventions form that uses the Zendesk API to send out tickets and using Microsft Azure to deploy our Rest API so that we can test out our PUT & GET requests from postman. (The Rest API repo link is above)  
+ 
+
+Week 10 - This week we used rspec to create tests on our informatin system. All files related to the test can be found in ./spec & ./lib; to test the streamer_spec.rb simply run a command in the terminal (make sure you're at the file directory in the terminal to run the 'rspec spec' command so if you git clone this repo into a file called rocket-foundation make sure you're inside that file then run the command.) after that you'll see all tests will run successfully.
+
+Test file directories:
+./spec/Elevator_media/streamer_spec.rb
+./spec/models/lead_spec.rb
+./spec/models/quote_spec.rb
+
+EXAMPLE: To run all the rspec tests run this command: rspec spec
+EXAMPLE: To run a specific test run this command: rspec ./spec/Elevator_media/streamer_spec.rb
+
+Note: Change the file name or directory path to run the tests individually, you can get the file paths above susbstitute them for the example that was provided above.  
+
+
