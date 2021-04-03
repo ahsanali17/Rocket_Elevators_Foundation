@@ -17,7 +17,7 @@ RSpec.describe Lead, type: :model do
     }
 
 
-    it 'is required to enter in the full name on the form' do
+    it 'simple validity test' do
         expect(lead).to be_valid
     end
 
