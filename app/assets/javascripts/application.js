@@ -39,4 +39,7 @@
   //require "ibm_watson/authenticators"
   //require "ibm_watson/text_to_speech_v1"
   //require 'test_helper'
+  //= stub 'sdk.js'
+  //= stub 'transcribe.js'
+  //= stub 'azure_speech.js'
 // })

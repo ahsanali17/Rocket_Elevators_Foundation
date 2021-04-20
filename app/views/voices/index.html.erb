@@ -1,0 +1,81 @@
+<% provide :head_tags do %>
+  <%= javascript_include_tag 'azure_speech' %>
+<% end %>
+<section>
+  <h1 class="text-center">Azure Speech Services</h1>
+  <div id="loadingSpinner" class='hidden'>
+    <h3 class="text-center text-blue fw-300" id='loadingStatusText'></h3>
+    <div class='w-100p d-flex justify-content-center'>
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div class="container row align-center m-auto">
+    <div class="col-md-3 speechBlock" >
+      <h3 class="text-center pt-15">Enroll Profile</h3>
+      <form class="text-center">
+        <label >Enroll a new profile with an audio clip of your voice.<br>
+          (.wav files only)</label>
+        <hr>
+        <input type="file" style="display: none" id="uploadAudioSignatureFile" accept=".wav">
+        <div>
+          <button type="button" class="btn btn-blue justify-content-center mt-70 mb-60" id="buttonEnroll" onclick="document.getElementById('uploadAudioSignatureFile').click();">Select files</button>
+          <i class="fas fa-paperclip"></i>
+        </div>
+        <hr>
+        <div>
+          <button type="button" class="btn btn-primary " id="enrollProfileButton">Enroll Profile</button>
+          <i class="fas fa-file"></i>
+        </div>
+      </form>
+    </div>
+    <div class='text-center col-md-3 boxSpeech'>
+      <h3 class="text-center pt-15">Upload Audio</h3>
+      <form class='d-flex justify-content-center'>
+        <div class="form-group">
+          <label for="uploadFile">Upload new audio clip to test against a profile. <br>
+            (.wav files only)</label>
+          <hr>
+          <input type="file" id="uploadNewFile" class='form-control-file' style="display: none" accept=".wav" multiple>
+          <div>
+            <button type="button" class="btn btn-blue justify-content-center mt-70 mb-60" id="buttonUpload" onclick="document.getElementById('uploadNewFile').click();">Select files</button>
+            <i class="fas fa-paperclip"></i>
+          </div>
+          <hr>
+          <button type="button" class="btn btn-primary justify-content-center" id="uploadNewFileButton" >Upload</button>
+          <i class="fas fa-cloud"></i>
+        </div>
+      </form>
+    </div>
+    <div class='d-flex justify-content-center text-center col-md-4 speechBlock'>
+      <form>
+        <div class='p-3'>
+          <h3 class="pt-15">Verify Speaker</h3>
+          <h3>1. Select Audio Clip</h3>
+          <select id="fileSelect">
+            <% @files.each do |file| %>
+              <div class='form-check m-2'>
+                <option value="<%=file%>"><%= file %></option>
+              </div>
+            <% end %>
+          </select>
+        </div>
+        <div class="form-group m-3 p-3">
+          <h3>2. Select Voice Profile</h3>
+          <select id="profileSelect" class='form-control'>
+            <% @profiles.each do |p| %>
+              <option value="<%= p.profile_id %>"><%= p.user_name %> </option>
+            <% end %>
+          </select>
+        </div>
+        <h3 id="resultText"></h3>
+        <button type="button" class="btn btn-primary justify-content-center " id="checkAudioButton">Verify Profile</button>
+        <i class="fas fa-bars mt-40"></i>
+      </form>
+    </div>
+  </div>
+</section>
