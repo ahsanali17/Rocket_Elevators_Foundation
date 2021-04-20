@@ -1,0 +1,113 @@
+<% provide :head_tags do %>
+  <script>
+    const key = "<%= ENV['AZURE_KEY'] %>"
+  </script>
+  <%= javascript_include_tag 'sdk' %>
+  <%= javascript_include_tag 'transcribe' %>
+<% end %>
+<section>
+  <div id="content" class='container'>
+    <h1 class='text-center'>Speech Recognition</h1>
+    <div class='d-flex justify-content-center'>
+      <form>
+        <div>
+          <label>Language:</label>
+          <select id="languageOptions">
+            <option value="en-CA">English - CA</option>
+            <option value="en-GB">English - GB</option>
+            <option value="en-US" selected="selected">English - US</option>
+            <option value="fr-CA">French - CA</option>
+            <option value="fr-FR">French - FR</option>
+          </select>
+        </div>
+        <label>Input:</label>
+        <select id="inputSource">
+          <option value="Mic" selected="selected">Microphone</option>
+          <option value="File">Audio File</option>
+        </select>
+        <select id="microphoneSource" style="display:none">
+        </select>
+        <input type="file" id="filePicker" accept=".wav" style="display:none" />
+        <label>Recognize Single Phrase:</label>
+        <button id="speechsdkStartRecognizeOnceAsync" type="button" class='btn btn-info'>START</button>
+        <button id="speechsdkStopRecognizeOnceAsync" type="button" class='btn btn-danger' disabled="disabled">STOP</button>
+        <label>Continuous Speech Recognition:</label>
+        <button id="speechsdkStartContinuousRecognition" type="button" class='btn btn-info'>START</button>
+        <button id="speechsdkStopContinuousRecognition" type="button" disabled="disabled" class='btn btn-danger'>STOP</button>
+        <label>Speech Translation:</label>
+        <button id="speechsdkStartContinuousTranslation" type="button" class='btn btn-info'>START</button>
+        <button id="speechsdkStopContinuousTranslation" type="button" disabled="disabled" class='btn btn-danger'>STOP</button>
+        <select id="languageTargetOptions">
+          <option value="Microsoft Server Speech Text to Speech Voice (ar-EG, Hoda)">Arabic - EG</option>
+          <option value="Microsoft Server Speech Text to Speech Voice (ca-ES, HerenaRUS)">Catalan - ES
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (da-DK, HelleRUS)">Danish - DK
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (de-DE, Hedda)" selected="selected">
+            German - DE</option>
+          <option value="Microsoft Server Speech Text to Speech Voice (en-AU, Catherine)">English - AU
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (en-CA, Linda)">English - CA
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (en-GB, Susan, Apollo)">English - GB
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (en-IN, Heera, Apollo)">English - IN
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)">English - US
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (es-ES, Laura, Apollo)">Spanish - ES
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (es-MX, HildaRUS)">Spanish - MX
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (fi-FI, HeidiRUS)">Finnish - FI
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (fr-CA, Caroline)">French - CA
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (fr-FR, Julie, Apollo)">French - FR
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (hi-IN, Hemant)">Hindi - IN</option>
+          <option value="Microsoft Server Speech Text to Speech Voice (it-IT, LuciaRUS)">Italian - IT
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (ja-JP, Ayumi, Apollo)">Japanese -
+            JP</option>
+          <option value="Microsoft Server Speech Text to Speech Voice (ko-KR, HeamiRUS)">Korean - KR
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (nb-NO, HuldaRUS)">Norwegian - NO
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (nl-NL, HannaRUS)">Dutch - NL
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (pl-PL, PaulinaRUS)">Polish - PL
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (pt-BR, HeloisaRUS)">Portuguese - BR
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (pt-PT, HeliaRUS)">Portuguese - PT
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (ru-RU, Irina, Apollo)">Russian - RU
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (sv-SE, HedvigRUS)">Swedish - SE
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (zh-CN, Kangkang, Apollo)">Chinese -
+            CN</option>
+          <option value="Microsoft Server Speech Text to Speech Voice (zh-HK, Tracy, Apollo)">Chinese - HK
+          </option>
+          <option value="Microsoft Server Speech Text to Speech Voice (zh-TW, Yating, Apollo)">Chinese -
+            TW</option>
+        </select>
+        <label for="voiceOutput">voice output
+          <input id="voiceOutput" type="checkbox" checked>
+        </label>
+        <label>Results: </label>
+        <textarea id="phraseDiv" style="display: inline-block;width:500px;height:200px"></textarea>
+        <label>Status: </label>
+        <textarea id="statusDiv" style="display: inline-block;width:500px;height:200px;overflow: scroll;white-space: nowrap;"></textarea>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  function Initialize(onComplete) {
+      if (!!window.SpeechSDK) {
+          onComplete(window.SpeechSDK);
+      }
+  }
+</script>

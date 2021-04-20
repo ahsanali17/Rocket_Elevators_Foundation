@@ -38,4 +38,11 @@ Rails.application.routes.draw do
 
   get "/ajax/GetData" => "interventions#getData"
 
+  get 'speech', to: 'voices#index'
+  get 'speech/transcribe', to: 'voices#speech_transcription'
+  get 'verify_audio', to: 'voices#verify_audio'
+  post 'upload_audio', to: 'voices#upload_audio'
+  get 'create_profile_id', to: 'voices#create_profile_id'
+  get 'enroll_profile', to: 'voices#enroll_new_profile'
+
 end
