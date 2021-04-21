@@ -1,5 +1,3 @@
-console.log("speech")
-
 // status fields and start button in UI
 var phraseDiv;
 var startRecognizeOnceAsyncButton;
