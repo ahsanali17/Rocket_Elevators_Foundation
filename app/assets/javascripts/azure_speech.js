@@ -1,3 +1,5 @@
+console.log("Testing")
+
 const loadingUpdater = loadingText => {
   document.getElementById('loadingSpinner').classList.remove('hidden');
   document.getElementById('loadingStatusText').textContent = loadingText;
@@ -5,6 +7,7 @@ const loadingUpdater = loadingText => {
 
 const createProfile = async () => {
   loadingUpdater('Creating profile, please wait');
+  
   const response = await fetch('/create_profile_id', {
     headers: {
       Accept: 'application/json',
