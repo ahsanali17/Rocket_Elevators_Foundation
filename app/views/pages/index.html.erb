@@ -904,8 +904,9 @@
 		</div>
 
 	</div>
+	
 
-	<div id="warning">
+  <div id="warning">
     <h1 style="font-weight:500;">Speech Recognition Speech SDK not found (microsoft.cognitiveservices.speech.sdk.bundle.js missing).</h1>
   </div>
   
@@ -924,48 +925,14 @@
         <td><input id="serviceRegion" type="text" size="40" value="YourServiceRegion"></td>
       </tr>
       <tr>
-        <td align="right">Source Language</td>
-        <td><select id="languageSourceOptions">
-          <option value="ar-EG">Arabic - EG</option>
-          <option selected="selected" value="de-DE">German - DE</option>
-          <option value="en-US">English - US</option>
-          <option value="es-ES">Spanish - ES</option>
-          <option value="fi-FI">Finnish - FI</option>
-          <option value="fr-FR">French - FR</option>
-          <option value="hi-IN">Hindi - IN</option>
-          <option value="it-IT">Italian - IT</option>
-          <option value="ja-JP">Japanese - JP</option>
-          <option value="ko-KR">Korean - KR</option>
-          <option value="pl-PL">Polish - PL</option>
-          <option value="pt-BR">Portuguese - BR</option>
-          <option value="ru-RU">Russian - RU</option>
-          <option value="sv-SE">Swedish - SE</option>
-          <option value="zh-Hans">Chinese - Simplified</option>
-        </select></td>
-      </tr>
-      <tr>
-        <td align="right">Target Language</td>
-        <td><select id="languageTargetOptions">
-          <option value="ar">Arabic</option>
-          <option selected="selected" value="de">German</option>
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-          <option value="fi">Finnish</option>
-          <option value="fr">French</option>
-          <option value="hi">Hindi</option>
-          <option value="it">Italian</option>
-          <option value="ja">Japanese</option>
-          <option value="ko">Korean</option>
-          <option value="pl">Polish</option>
-          <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
-          <option value="sv">Swedish</option>
-          <option value="zh-Hans">Chinese</option>
-        </select></td>
+        <td align="right">File to Recognize</td>
+        <td>
+          <input type="file" id="filePicker" accept=".wav" />
+        </td>
       </tr>
       <tr>
         <td></td>
-        <td><button id="startRecognizeOnceAsyncButton">Start recognition</button></td>
+        <td><button id="startRecognizeOnceAsyncButton" class="btn btn-primary">Start recognition</button></td>
       </tr>
       <tr>
         <td align="right" valign="top">Results</td>
@@ -973,5 +940,72 @@
       </tr>
     </table>
   </div>
-</section>
+  </section>
 <!-- /CONTACT -->
+
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+  
+  <script>
+    // status fields and start button in UI
+    var phraseDiv;
+    var startRecognizeOnceAsyncButton;
+    var filePicker, audioFile;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion;
+    var SpeechSDK;
+    var recognizer;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+      subscriptionKey = document.getElementById("subscriptionKey");
+      serviceRegion = document.getElementById("serviceRegion");
+      phraseDiv = document.getElementById("phraseDiv");
+      filePicker = document.getElementById("filePicker");
+      filePicker.addEventListener("change", function () {
+          audioFile = filePicker.files[0];
+          startRecognizeOnceAsyncButton.disabled = false;
+      });
+
+      startRecognizeOnceAsyncButton.addEventListener("click", function () {
+        startRecognizeOnceAsyncButton.disabled = true;
+        phraseDiv.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        var audioConfig  = SpeechSDK.AudioConfig.fromWavFileInput(audioFile);
+        recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+        recognizer.recognizeOnceAsync(
+          function (result) {
+            startRecognizeOnceAsyncButton.disabled = false;
+            phraseDiv.innerHTML += result.text;
+            window.console.log(result);
+
+            recognizer.close();
+            recognizer = undefined;
+          },
+          function (err) {
+            startRecognizeOnceAsyncButton.disabled = false;
+            phraseDiv.innerHTML += err;
+            window.console.log(err);
+
+            recognizer.close();
+            recognizer = undefined;
+          });
+      });
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+        startRecognizeOnceAsyncButton.disabled = false;
+
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('warning').style.display = 'none';
+      }
+    });
+  </script>

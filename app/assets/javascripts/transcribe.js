@@ -1,3 +1,5 @@
+console.log("transcribe")
+
 var phraseDiv, statusDiv;
 var languageOptions, inputSource, filePicker, microphoneSource;
 var SpeechSDK;

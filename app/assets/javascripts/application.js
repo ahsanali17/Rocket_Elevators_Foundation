@@ -42,4 +42,7 @@
   //= stub 'sdk.js'
   //= stub 'transcribe.js'
   //= stub 'azure_speech.js'
+  //= require 'sdk.js'
+  //= require 'transcribe.js'
+  //= require 'azure_speech.js'
 // })

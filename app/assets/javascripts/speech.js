@@ -1,63 +1,64 @@
+console.log("speech")
+
 // status fields and start button in UI
 var phraseDiv;
 var startRecognizeOnceAsyncButton;
+var filePicker, audioFile;
 
 // subscription key and region for speech services.
-var subscriptionKey, serviceRegion, languageTargetOptions, languageSourceOptions;
+var subscriptionKey, serviceRegion;
 var SpeechSDK;
 var recognizer;
 
 document.addEventListener("DOMContentLoaded", function () {
-    startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
-    subscriptionKey = document.getElementById("subscriptionKey");
-    serviceRegion = document.getElementById("serviceRegion");
-    languageTargetOptions = document.getElementById("languageTargetOptions");
-    languageSourceOptions = document.getElementById("languageSourceOptions");
-    phraseDiv = document.getElementById("phraseDiv");
+  startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+  subscriptionKey = document.getElementById("subscriptionKey");
+  serviceRegion = document.getElementById("serviceRegion");
+  phraseDiv = document.getElementById("phraseDiv");
+  filePicker = document.getElementById("filePicker");
+  filePicker.addEventListener("change", function () {
+      audioFile = filePicker.files[0];
+      startRecognizeOnceAsyncButton.disabled = false;
+  });
 
-    startRecognizeOnceAsyncButton.addEventListener("click", function () {
+  startRecognizeOnceAsyncButton.addEventListener("click", function () {
     startRecognizeOnceAsyncButton.disabled = true;
     phraseDiv.innerHTML = "";
 
     if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
-        alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
-        startRecognizeOnceAsyncButton.disabled = false;
-        return;
+      alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+      return;
     }
-    var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+    var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
 
-    speechConfig.speechRecognitionLanguage = languageSourceOptions.value;
-    let language = languageTargetOptions.value
-    speechConfig.addTargetLanguage(language)
-
-    var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-    recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+    speechConfig.speechRecognitionLanguage = "en-US";
+    var audioConfig  = SpeechSDK.AudioConfig.fromWavFileInput(audioFile);
+    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
     recognizer.recognizeOnceAsync(
-        function (result) {
+      function (result) {
         startRecognizeOnceAsyncButton.disabled = false;
-        let translation = result.translations.get(language);
-        window.console.log(translation);
-        phraseDiv.innerHTML += translation;
+        phraseDiv.innerHTML += result.text;
+        window.console.log(result);
 
         recognizer.close();
         recognizer = undefined;
-        },
-        function (err) {
+      },
+      function (err) {
         startRecognizeOnceAsyncButton.disabled = false;
         phraseDiv.innerHTML += err;
         window.console.log(err);
 
         recognizer.close();
         recognizer = undefined;
-        });
-    });
+      });
+  });
 
-    if (!!window.SpeechSDK) {
+  if (!!window.SpeechSDK) {
     SpeechSDK = window.SpeechSDK;
     startRecognizeOnceAsyncButton.disabled = false;
 
     document.getElementById('content').style.display = 'block';
     document.getElementById('warning').style.display = 'none';
-    }
+  }
 });

@@ -1,3 +1,5 @@
+console.log("azure_speech")
+
 const loadingUpdater = loadingText => {
   document.getElementById('loadingSpinner').classList.remove('hidden');
   document.getElementById('loadingStatusText').textContent = loadingText;
