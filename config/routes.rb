@@ -45,5 +45,5 @@ Rails.application.routes.draw do
   get 'create_profile_id', to: 'voices#create_profile_id'
   get 'enroll_profile', to: 'voices#enroll_new_profile'
 
-  get 'translate', to: 'voices#translate'
+  get 'transcription', to: 'voices#transcription'
 end
