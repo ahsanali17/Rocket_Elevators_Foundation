@@ -22,7 +22,7 @@ RailsAdmin.config do |config|
   config.navigation_static_label = "Speech"
   config.navigation_static_links = {
     'Speech  Recognition' => '/speech',
-    'Speech Transcription' => '/speech/transcribe'
+    'Speech Transcription' => '/transcription'
   }
   ## == Pundit ==
   # config.authorize_with :pundit
