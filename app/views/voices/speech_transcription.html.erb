@@ -1,115 +1,155 @@
-<% provide :head_tags do %>
-  <script>
-    const key = "<%= ENV['AZURE_KEY'] %>"
-  </script>
-  <%= javascript_include_tag 'sdk' %>
-  <%= javascript_include_tag 'transcribe' %>
-<% end %>
-<section>
-  <div id="content" class='container'>
-    <h1 class='text-center'>Speech Recognition</h1>
-    <div class='d-flex justify-content-center'>
-      <form>
-        <div>
-          <label>Language:</label>
-          <select id="languageOptions">
-            <option value="en-CA">English - CA</option>
-            <option value="en-GB">English - GB</option>
-            <option value="en-US" selected="selected">English - US</option>
-            <option value="fr-CA">French - CA</option>
-            <option value="fr-FR">French - FR</option>
-          </select>
-        </div>
-        <label>Input:</label>
-        <select id="inputSource">
-          <option value="Mic" selected="selected">Microphone</option>
-          <option value="File">Audio File</option>
-        </select>
-        <select id="microphoneSource" style="display:none">
-        </select>
-        <input type="file" id="filePicker" accept=".wav" style="display:none" />
-        <label>Recognize Single Phrase:</label>
-        <button id="speechsdkStartRecognizeOnceAsync" type="button" class='btn btn-info'>START</button>
-        <button id="speechsdkStopRecognizeOnceAsync" type="button" class='btn btn-danger' disabled="disabled">STOP</button>
-        <label>Continuous Speech Recognition:</label>
-        <button id="speechsdkStartContinuousRecognition" type="button" class='btn btn-info'>START</button>
-        <button id="speechsdkStopContinuousRecognition" type="button" disabled="disabled" class='btn btn-danger'>STOP</button>
-        <label>Speech Translation:</label>
-        <button id="speechsdkStartContinuousTranslation" type="button" class='btn btn-info'>START</button>
-        <button id="speechsdkStopContinuousTranslation" type="button" disabled="disabled" class='btn btn-danger'>STOP</button>
-        <select id="languageTargetOptions">
-          <option value="Microsoft Server Speech Text to Speech Voice (ar-EG, Hoda)">Arabic - EG</option>
-          <option value="Microsoft Server Speech Text to Speech Voice (ca-ES, HerenaRUS)">Catalan - ES
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (da-DK, HelleRUS)">Danish - DK
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (de-DE, Hedda)" selected="selected">
-            German - DE</option>
-          <option value="Microsoft Server Speech Text to Speech Voice (en-AU, Catherine)">English - AU
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (en-CA, Linda)">English - CA
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (en-GB, Susan, Apollo)">English - GB
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (en-IN, Heera, Apollo)">English - IN
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)">English - US
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (es-ES, Laura, Apollo)">Spanish - ES
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (es-MX, HildaRUS)">Spanish - MX
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (fi-FI, HeidiRUS)">Finnish - FI
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (fr-CA, Caroline)">French - CA
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (fr-FR, Julie, Apollo)">French - FR
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (hi-IN, Hemant)">Hindi - IN</option>
-          <option value="Microsoft Server Speech Text to Speech Voice (it-IT, LuciaRUS)">Italian - IT
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (ja-JP, Ayumi, Apollo)">Japanese -
-            JP</option>
-          <option value="Microsoft Server Speech Text to Speech Voice (ko-KR, HeamiRUS)">Korean - KR
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (nb-NO, HuldaRUS)">Norwegian - NO
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (nl-NL, HannaRUS)">Dutch - NL
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (pl-PL, PaulinaRUS)">Polish - PL
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (pt-BR, HeloisaRUS)">Portuguese - BR
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (pt-PT, HeliaRUS)">Portuguese - PT
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (ru-RU, Irina, Apollo)">Russian - RU
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (sv-SE, HedvigRUS)">Swedish - SE
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (zh-CN, Kangkang, Apollo)">Chinese -
-            CN</option>
-          <option value="Microsoft Server Speech Text to Speech Voice (zh-HK, Tracy, Apollo)">Chinese - HK
-          </option>
-          <option value="Microsoft Server Speech Text to Speech Voice (zh-TW, Yating, Apollo)">Chinese -
-            TW</option>
-        </select>
-        <label for="voiceOutput">voice output
-          <input id="voiceOutput" type="checkbox" checked>
-        </label>
-        <label>Results: </label>
-        <textarea id="phraseDiv" style="display: inline-block;width:500px;height:200px"></textarea>
-        <label>Status: </label>
-        <textarea id="statusDiv" style="display: inline-block;width:500px;height:200px;overflow: scroll;white-space: nowrap;"></textarea>
-      </form>
-    </div>
+<body style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px;">
+  
+  <div id="content" style="display:none">
+    <table width="100%">
+      <tr>
+        <td></td>
+        <td><h1 style="font-weight:500;">Rocket Elevators Speech to Text</h1></td>
+      </tr>
+
+      <tr>
+        <!-- This is where the subscription id from Azure Cognitive Service is put. This field is hidden -->
+        <td><input id="subscriptionKey" type="hidden" size="40" value="45dde55e10444d3eae10a478030f15f1"></td>
+      </tr>
+
+      <tr>
+        <!-- This is where the region is setup. Needs to be set to westus as the service is only available on that region. This field is hidden -->
+        <td><input id="serviceRegion" type="hidden" size="40" value="westus"></td>
+      </tr>
+      <tr>
+        <!-- This is where the user will select the appropriate language based on the file language -->
+        <td align="right">Source Language</td>
+        <td><select id="languageSourceOptions">
+          <option value="en-CA">English - CA</option>
+          <option value="fr-CA">French - CA</option>
+        </select></td>
+      </tr>
+
+      <tr>
+        <!-- This is where the user select the file that will be converted to text. WAV files only -->
+        <td align="right">File to Recognize</td>
+        <td>
+          <input type="file" id="filePicker" accept=".wav" />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+
+        <!-- This is the button that initiates the transcription -->
+        <td><button id="startRecognizeOnceAsyncButton">Start recognition</button></td>
+      </tr>
+      
+      <tr>
+        <!-- This is where the result of the transcription will be displayed -->
+        <td align="right" valign="top">Results</td>
+        <td><textarea id="phraseDiv" style="display: inline-block;width:500px;height:200px"></textarea></td>
+      </tr>
+    </table>
   </div>
-</section>
-<script>
-  function Initialize(onComplete) {
-      if (!!window.SpeechSDK) {
-          onComplete(window.SpeechSDK);
+
+
+  <!-- This is where all the script from Azure are stored -->
+
+  <!-- Speech SDK reference sdk. -->
+  <script src="microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+
+  <!-- Speech SDK Authorization token -->
+  <script>
+  var authorizationEndpoint = "token.php";
+
+  function RequestAuthorizationToken() {
+    if (authorizationEndpoint) {
+      var a = new XMLHttpRequest();
+      a.open("GET", authorizationEndpoint);
+      a.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      a.send("");
+      a.onload = function() {
+          var token = JSON.parse(atob(this.responseText.split(".")[1]));
+          serviceRegion.value = token.region;
+          authorizationToken = this.responseText;
+          subscriptionKey.disabled = true;
+          subscriptionKey.value = "using authorization token (hit F5 to refresh)";
+          console.log("Got an authorization token: " + token);
       }
+    }
   }
-</script>
-<hr>
-<hr>
+  </script>
+  <!-- Speech SDK USAGE -->
+  <script>
+    // status fields and start button in UI
+    var phraseDiv;
+    var startRecognizeOnceAsyncButton;
+    var filePicker, audioFile;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion;
+    var authorizationToken;
+    var SpeechSDK;
+    var recognizer;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+      subscriptionKey = document.getElementById("subscriptionKey");
+      serviceRegion = document.getElementById("serviceRegion");
+      phraseDiv = document.getElementById("phraseDiv");
+      filePicker = document.getElementById("filePicker");
+      filePicker.addEventListener("change", function () {
+          audioFile = filePicker.files[0];
+          startRecognizeOnceAsyncButton.disabled = false;
+      });
+
+      startRecognizeOnceAsyncButton.addEventListener("click", function () {
+        startRecognizeOnceAsyncButton.disabled = true;
+        phraseDiv.innerHTML = "";
+
+        // if we got an authorization token, use the token. Otherwise use the provided subscription key
+        var speechConfig;
+        if (authorizationToken) {
+          speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authorizationToken, serviceRegion.value);
+        } else {
+          if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+            alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+            return;
+          }
+          speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+        }
+
+        speechConfig.speechRecognitionLanguage = languageSourceOptions.value;
+        var audioConfig  = SpeechSDK.AudioConfig.fromWavFileInput(audioFile);
+        recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+        recognizer.recognizeOnceAsync(
+          function (result) {
+            startRecognizeOnceAsyncButton.disabled = false;
+            phraseDiv.innerHTML += result.text;
+            window.console.log(result);
+
+            recognizer.close();
+            recognizer = undefined;
+          },
+          function (err) {
+            startRecognizeOnceAsyncButton.disabled = false;
+            phraseDiv.innerHTML += err;
+            window.console.log(err);
+
+            recognizer.close();
+            recognizer = undefined;
+          });
+      });
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+        startRecognizeOnceAsyncButton.disabled = false;
+
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('warning').style.display = 'none';
+
+        // in case we have a function for getting an authorization token, call it.
+        if (typeof RequestAuthorizationToken === "function") {
+            RequestAuthorizationToken();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

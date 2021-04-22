@@ -4,7 +4,7 @@ module VoicesHelper
   def verify_audio_file(profile_id, file_name)
     file = File.open("public/uploads/voice/#{file_name}")
     endpoint =
-      "https://westus.api.cognitive.microsoft.com/speaker/verification/v2.0/text-independent/profiles/#{
+      "https://westus.api.cognitive.microsoft.com/speaker/verification/v2.0/text-independent/profiles#{
         profile_id
       }/verify"
 
@@ -49,7 +49,7 @@ module VoicesHelper
   def enroll_profile(file_name, profile_id)
     file = File.open("public/uploads/voice/#{file_name}")
     endpoint =
-      "https://westus.api.cognitive.microsoft.com/speaker/verification/v2.0/text-independent/profiles/#{
+      "https://westus.api.cognitive.microsoft.com/speaker/verification/v2.0/text-independent/profiles#{
         profile_id
       }/enrollments"
 
