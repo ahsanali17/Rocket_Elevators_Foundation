@@ -16,14 +16,6 @@
         <td><h1 class='recognizer-title' style="font-weight:200;">Microsoft Cognitive Services Speech Recognizer</h1></td>
       </tr>
       <tr>
-        <td align="right"><a href="https://docs.microsoft.com/azure/cognitive-services/speech-service/get-started" target="_blank">Subscription</a>:</td>
-        <td><input id="subscriptionKeyRecognizer" type="text" size="40" value="<%= ENV['SUB_KEY_RECOGNIZER'] %>" readonly></td>
-      </tr>
-      <tr>
-        <td align="right">Region</td>
-        <td><input id="serviceRegion" type="text" size="40" value="<%= ENV['SPEECH_REGION'] %>" readonly></td>
-      </tr>
-      <tr>
         <td align="right">Enrollment File</td>
         <td>
           <input type="file" id="filePicker" accept=".wav" />
@@ -75,8 +67,8 @@
       createVoiceProfileButton = document.getElementById("createVoiceProfileButton");
       identifySpeakerButton = document.getElementById("identifySpeakerButton");
       deleteProfileButton = document.getElementById("deleteProfileButton");
-      subscriptionKeyRecognizer = document.getElementById("subscriptionKeyRecognizer");
-      serviceRegion = document.getElementById("serviceRegion");
+    //   subscriptionKeyRecognizer = document.getElementById("subscriptionKeyRecognizer");
+    //   serviceRegion = document.getElementById("serviceRegion");
       resultDiv = document.getElementById("resultDiv");
       filePicker = document.getElementById("filePicker");
       testFilePicker = document.getElementById("testFilePicker");
@@ -96,12 +88,12 @@
         createVoiceProfileButton.disabled = true;
         resultDiv.innerHTML = "";
 
-         if (subscriptionKeyRecognizer.value === "" || subscriptionKeyRecognizer.value === "subscription") {
-           alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
-           createVoiceProfileButton.disabled = false;
-           return;
-         }
-         var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer.value, serviceRegion.value);
+        //  if (subscriptionKeyRecognizer.value === "" || subscriptionKeyRecognizer.value === "subscription") {
+        //    alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+        //    createVoiceProfileButton.disabled = false;
+        //    return;
+        //  }
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer, serviceRegion);
         console.log(speechConfig);
         speechConfig.setProperty(SpeechSDK.PropertyId.SpeechServiceConnection_TranslationVoice, "en-US");
         client = new SpeechSDK.VoiceProfileClient(speechConfig);
@@ -145,7 +137,7 @@
       });
 
       identifySpeakerButton.addEventListener("click", function () {
-        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer.value, serviceRegion.value);
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer, serviceRegion);
         let testAudioConfig = SpeechSDK.AudioConfig.fromWavFileInput(testFile);
         console.log(testAudioConfig);
         console.log(speechConfig);
