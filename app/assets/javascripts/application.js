@@ -42,4 +42,5 @@
   //= require 'sdk.js'
   //= require 'transcribe.js'
   //= require 'azure_speech.js'
+  //= require 'transcription.js'
 // })
