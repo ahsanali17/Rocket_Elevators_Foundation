@@ -100,11 +100,11 @@
                 <td align="left">
                     <select id="scenarioSelection">
                         <option value="speechRecognizerContinuous">Continuous speech-to-text</option>
+                        <option value="translationRecognizerContinuous">Continuous translation</option>
+                        <option value="pronunciationAssessmentContinuous">Continuous pronunciation assessment</option>
                         <option value="speechRecognizerRecognizeOnce">Single-shot speech-to-text</option>
                         <option value="intentRecognizerRecognizeOnce">Single-shot intent recognition</option>
-                        <option value="translationRecognizerContinuous">Continuous translation</option>
                         <option value="pronunciationAssessmentOnce">Single-shot pronunciation assessment</option>
-                        <option value="pronunciationAssessmentContinuous">Continuous pronunciation assessment</option>
                     </select>
                 </td>
             </tr>
@@ -250,7 +250,7 @@
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 
     <!-- Speech Speech SDK Authorization token -->
-    <script>
+    <%# <script>
         // Note: Replace the URL with a valid endpoint to retrieve
         //       authorization tokens for your subscription.
 
@@ -275,7 +275,7 @@
                 }
             }
         }
-    </script>
+    </script> %>
 
     <!-- Speech SDK presence check -->
     <script>
@@ -378,7 +378,8 @@
                         case 'speechRecognizerContinuous': 
                         // case 'pronunciationAssessmentContinuous': return 'startContinuousRecognitionAsync()';
                         case 'pronunciationAssessmentContinuous': return 'START';
-                        case 'translationRecognizerContinuous': return 'startContinuousTranslation()';
+                        // case 'translationRecognizerContinuous': return 'startContinuousTranslation()';
+                        case 'translationRecognizerContinuous': return 'Start Continuous Translation';
                     }
                 })();
 
@@ -439,6 +440,7 @@
                         break;
                     case 'speechRecognizerContinuous':
                     case 'translationRecognizerContinuous':
+                    case 'pronunciationAssessmentContinuous':
                         reco.stopContinuousRecognitionAsync(
                             function () {
                                 reco.close();
