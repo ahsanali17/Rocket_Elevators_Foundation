@@ -17,11 +17,11 @@
       </tr>
       <tr>
         <td align="right"><a href="https://docs.microsoft.com/azure/cognitive-services/speech-service/get-started" target="_blank">Subscription</a>:</td>
-        <td><input id="subscriptionKey" type="text" size="40" value=""></td>
+        <td><input id="subscriptionKeyRecognizer" type="text" size="40" value="<%= ENV['SUB_KEY_RECOGNIZER'] %>" readonly></td>
       </tr>
       <tr>
         <td align="right">Region</td>
-        <td><input id="serviceRegion" type="text" size="40" value="westus"></td>
+        <td><input id="serviceRegion" type="text" size="40" value="<%= ENV['SPEECH_REGION'] %>" readonly></td>
       </tr>
       <tr>
         <td align="right">Enrollment File</td>
@@ -30,22 +30,22 @@
         </td>
       </tr>
       <tr>
-        <td align="right">Test Identification File</td>
+        <td></td>
+        <td><button class="btn btn-green" id="createVoiceProfileButton">Create Voice Profile</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button class="btn btn-red"id="deleteProfileButton">Delete Voice Profile</button></td>
+      </tr>
+      <tr>
+        <td align="right">Identification File</td>
         <td>
           <input type="file" id="testFilePicker" accept=".wav" />
         </td>
       </tr>
       <tr>
         <td></td>
-        <td><button id="createVoiceProfileButton">Create Voice Profile</button></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><button id="identifySpeakerButton">Identify Speaker</button></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><button id="deleteProfileButton">Delete Voice Profile</button></td>
+        <td><button class="btn btn-blue" id="identifySpeakerButton">Identify Speaker</button></td>
       </tr>
       <tr>
         <td align="right" valign="top">Result</td>
@@ -63,7 +63,8 @@
     var deleteProfileButton;
 
     // subscription key and region for speech services.
-    var subscriptionKey, serviceRegion;
+    var subscriptionKeyRecognizer = "<%= ENV['SUB_KEY_RECOGNIZER'] %>";
+    var serviceRegion = "<%= ENV['SPEECH_REGION'] %>";
     var SpeechSDK;
     var client;
     var filePicker, testFilePicker,audioFiles, testFile;
@@ -74,7 +75,7 @@
       createVoiceProfileButton = document.getElementById("createVoiceProfileButton");
       identifySpeakerButton = document.getElementById("identifySpeakerButton");
       deleteProfileButton = document.getElementById("deleteProfileButton");
-      subscriptionKey = document.getElementById("subscriptionKey");
+      subscriptionKeyRecognizer = document.getElementById("subscriptionKeyRecognizer");
       serviceRegion = document.getElementById("serviceRegion");
       resultDiv = document.getElementById("resultDiv");
       filePicker = document.getElementById("filePicker");
@@ -95,13 +96,13 @@
         createVoiceProfileButton.disabled = true;
         resultDiv.innerHTML = "";
 
-        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
-          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
-          createVoiceProfileButton.disabled = false;
-          return;
-        }
-        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
-
+         if (subscriptionKeyRecognizer.value === "" || subscriptionKeyRecognizer.value === "subscription") {
+           alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+           createVoiceProfileButton.disabled = false;
+           return;
+         }
+         var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer.value, serviceRegion.value);
+        console.log(speechConfig);
         speechConfig.setProperty(SpeechSDK.PropertyId.SpeechServiceConnection_TranslationVoice, "en-US");
         client = new SpeechSDK.VoiceProfileClient(speechConfig);
 
@@ -144,8 +145,11 @@
       });
 
       identifySpeakerButton.addEventListener("click", function () {
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKeyRecognizer.value, serviceRegion.value);
         let testAudioConfig = SpeechSDK.AudioConfig.fromWavFileInput(testFile);
-        let recognizer = new SpeechSDK.SpeakerRecognizer(speechConfig, testAudioConfig); //Error over here
+        console.log(testAudioConfig);
+        console.log(speechConfig);
+        let recognizer = new SpeechSDK.SpeakerRecognizer(speechConfig, testAudioConfig); 
         let model = SpeechSDK.SpeakerIdentificationModel.fromProfiles([profile]);
         recognizer.recognizeOnceAsync(
           model,
