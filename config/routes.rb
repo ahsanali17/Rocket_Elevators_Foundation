@@ -45,6 +45,6 @@ Rails.application.routes.draw do
   get 'create_profile_id', to: 'voices#create_profile_id'
   get 'enroll_profile', to: 'voices#enroll_new_profile'
 
-  get 'transcription', to: 'voices#transcription'
+  get 'speechtext', to: 'voices#speechtext'
   get 'recognizer', to: 'voices#recognizer'
 end
