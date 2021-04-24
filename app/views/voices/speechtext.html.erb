@@ -1,8 +1,4 @@
 <section>
-<%# <% provide :head_tags do %>
-  <%# <%= javascript_include_tag 'transcription' %>
-<%# <% end %>
-
     <div id="warning">
         <h1 style="font-weight:500;">Speech Recognition Speech SDK not found
             (microsoft.cognitiveservices.speech.sdk.bundle.js missing).</h1>
@@ -107,7 +103,7 @@
                         <option value="translationRecognizerContinuous">Continuous translation</option>
                         <option value="pronunciationAssessmentContinuous">Continuous pronunciation assessment</option>
                         <option value="speechRecognizerRecognizeOnce">Single-shot speech-to-text</option>
-                        <option value="intentRecognizerRecognizeOnce">Single-shot intent recognition</option>
+                        <%# <option value="intentRecognizerRecognizeOnce">Single-shot intent recognition</option> %>
                         <option value="pronunciationAssessmentOnce">Single-shot pronunciation assessment</option>
                     </select>
                 </td>
@@ -251,5 +247,5 @@
     </div>
     
     <!-- Speech SDK REFERENCE -->
-    <%# <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> %>
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 </section>
