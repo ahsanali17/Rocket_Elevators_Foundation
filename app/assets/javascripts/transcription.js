@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
             case 'pronunciationAssessmentContinuous':
                 reco.stopContinuousRecognitionAsync(
                     function () {
-                        console.log(reco)
                         reco.close();
                         reco = undefined;
                     },
@@ -394,14 +393,21 @@ function onSessionStarted(sender, sessionEventArgs) {
 function onSessionStopped(sender, sessionEventArgs) {
     statusDiv.innerHTML += `(sessionStopped) SessionId: ${sessionEventArgs.sessionId}\r\n`;
 
-    if (scenarioSelection.value == 'pronunciationAssessmentContinuous') {
+    if (scenarioSelection.value == 'pronunciationAssessmentContinuous') {       
+        for (const thingToDisableDuringSession of thingsToDisableDuringSession) {
+            thingToDisableDuringSession.disabled = false;
+        }
+
+        scenarioStartButton.disabled = false;
+        scenarioStopButton.disabled = true;
+    
         calculateOverallPronunciationScore();
     }
 
     for (const thingToDisableDuringSession of thingsToDisableDuringSession) {
         thingToDisableDuringSession.disabled = false;
     }
-
+    
     scenarioStartButton.disabled = false;
     scenarioStopButton.disabled = true;
 }
@@ -468,7 +474,7 @@ function calculateOverallPronunciationScore() {
     // strip punctuation
     var referenceWords = referenceText.value.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"");
     referenceWords = referenceWords.split(' ');
-
+    
     var recognizedWords = [];
     var sumDuration = 0;
     var sumAccuracy = 0;
@@ -483,7 +489,7 @@ function calculateOverallPronunciationScore() {
         sumAccuracy += duration * result.accuracyScore;
         sumFluency += duration * result.fluencyScore;
     }
-
+    
     // weighted accuracy and fluency scores
     var accuracy = sumAccuracy / sumDuration;
     var fluency = sumFluency / sumDuration;
@@ -497,13 +503,12 @@ function calculateOverallPronunciationScore() {
     }
 
     var completeness = (1 - diffWordsNum / referenceWords.length) * 100;
-
+    
     phraseDiv.innerHTML +=
         `[Overall Pronunciation result] Accuracy: ${accuracy}; 
                Fluency: ${fluency};
                Completeness: ${completeness}.\n`;
 }
-
 function doRecognizeOnceAsync() {
     resetUiForScenarioStart();
 
