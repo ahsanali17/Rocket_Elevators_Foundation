@@ -74,7 +74,7 @@
       testFilePicker = document.getElementById("testFilePicker");
       
       deleteProfileButton.disabled = true;
-      identifySpeakerButton.disabled = true;
+      identifySpeakerButton.disabled = false;
       filePicker.addEventListener("change", function () {
           audioFiles = filePicker.files;
       });
@@ -176,7 +176,7 @@
               resultDiv.innerHTML += "(Delete profile result) Reason: " + SpeechSDK.ResultReason[result.reason]; 
               resultDiv.innerHTML += "\r\n"; 
               deleteProfileButton.disabled = true;
-              identifySpeakerButton.disabled = true;
+              identifySpeakerButton.disabled = false;
             },
             function(err) {
               window.console.log(err);
