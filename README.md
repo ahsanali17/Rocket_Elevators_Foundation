@@ -154,7 +154,7 @@ EXAMPLE: To run a specific test run this command: rspec ./spec/Elevator_media/st
 Note: Change the file name or directory path to run the tests individually, you can get the file paths above susbstitute them for the example that was provided above.  
 
 __________________________________________________________________________________________________________________________________________
-Week 13 - This week we worked with implementing a Microsoft Azure's Speech & Cognitive Services to our application. All necessary files pertaining to the Sceanrio's from 1-10 can be found in both French & English in the public/uploads/ folder. There will be a seperate folder 'ProfileCreation' that will be used to store audio data for creating a unique voice profile. In the views/voices/ you'll find html files relating to the two pages one for profile creation plus speech recognition and the second file is for transcribing audio to text. Both of these pages are only accessible from the back-office. 
+Week 13 - This week we worked with implementing a Microsoft Azure's Speech & Cognitive Services to our application. All necessary files pertaining to the Scenarios' 1-10 can be found in split even in both French & English in the public/uploads/ folder. There will be a seperate folder 'ProfileCreation' that will be used to store audio data for creating a unique voice profile. In the views/voices/ you'll find html files relating to the two pages one for profile creation plus speech recognition and the second file is for transcribing audio to text. Both of these pages are only accessible from the back-office. 
 
 Other Repo's we worked on this week:
 https://github.com/ahsanali17/RocketElevators-AI-Alexa
