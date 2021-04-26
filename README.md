@@ -165,7 +165,7 @@ Information on getting the Speech services to work:
 |Scenario's in English|
 |1| - No Voice Profile created.
 |4| - Shaphan's Voice profile created.
-|6| - Shaphan & Don's voice profiel created. 
+|6| - Shaphan & Don's voice profile created. 
 |9| - Don & Ahsan's voice profile created.
 |10| - Don & Ahsan's voice profile created.
 
