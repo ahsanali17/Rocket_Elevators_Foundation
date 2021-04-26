@@ -160,7 +160,7 @@ Other Repo's we worked on this week:
 https://github.com/ahsanali17/RocketElevators-AI-Alexa
 https://github.com/ahsanali17/RocketElevators-AI-Chatbot
 
-Information on getting the Speech services to work:
+Information on Profile Creation and Speech Recognition:
  
 |Scenario's in English|
 |1| - No Voice Profile created.
@@ -175,3 +175,9 @@ Information on getting the Speech services to work:
 |5| - Ahsan's voice profile created.
 |7| - Shaphan & Ahsan's voice profile created.
 |8| - Shaphan & Ahsan's voice profile created.
+
+It's improtant if you wish to get the correct results to create & register the voice profiles in their respective languages for that specific scenario so when you test the speech recogniton it does not give you easily avoidable error's.
+
+Speech Transcribing:
+
+Transcribing a specific audio file like Scenario #1 in the is quite simple. Choose an audio file you wish to upload and convert into text or if you wish to say something in your microphone then select that as your input source followed by pressing the button to transcribe it into text. Remember to choose the audio language to transcribe to, try to keep the languages the same as there can be issues with completely transcribing an audio into another language. There will be many kinds of ways you can transcribe the audio but for now sticking with 'Continuous speech-to-text' will do the job of demonstrating the main operations of this feature. 
