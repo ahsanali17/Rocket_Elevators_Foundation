@@ -16,8 +16,14 @@ RailsAdmin.config do |config|
   config.navigation_static_label = "Graphs"
   config.navigation_static_links = {
     'Charts' => '/blazer',
+  
   }
-
+  
+  config.navigation_static_label = "Speech"
+  config.navigation_static_links = {
+    'Speech  Recognition' => '/speech/recognizer',
+    'Speech Transcription' => '/speechtext'
+  }
   ## == Pundit ==
   # config.authorize_with :pundit
 
